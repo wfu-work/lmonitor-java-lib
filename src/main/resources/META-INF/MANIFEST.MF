@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: dmonitor
+Implementation-Version: 1.1.1
+Built-Gradle: 7.1
+Bundle-DocURL: https://wfu.com/
+Build-OS: Windows 10
+Built-By: 24319
+Build-Jdk: 21
+Build-Timestamp: 2022-06-01 00:25:33
+Automatic-Module-Name: com.navfirst.dmonitor.lib
