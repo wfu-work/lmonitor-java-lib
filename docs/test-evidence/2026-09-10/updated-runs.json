@@ -1,0 +1,26 @@
+[
+  {
+    "name": "updated-baselines",
+    "exit_code": 0,
+    "concurrency": 1,
+    "rounds": 1
+  },
+  {
+    "name": "updated-repeatability",
+    "exit_code": 0,
+    "concurrency": 1,
+    "rounds": 4
+  },
+  {
+    "name": "updated-windows",
+    "exit_code": 0,
+    "concurrency": 1,
+    "rounds": 1
+  },
+  {
+    "name": "updated-concurrent-2",
+    "exit_code": 0,
+    "concurrency": 2,
+    "rounds": 2
+  }
+]

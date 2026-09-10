@@ -17,7 +17,7 @@ import java.util.Arrays;
 /**
  * 创建：馥溪凝
  * 日期：2022/04/10 13:40
- * 描述：com.navfirst.dmonitor.lib.services.impl
+ * 描述：com.navfirst.lmonitor.lib.services.impl
  */
 @Slf4j
 @Service

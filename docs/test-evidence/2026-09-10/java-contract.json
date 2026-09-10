@@ -1,0 +1,99 @@
+{
+  "checks": [
+    {
+      "name": "time_slash",
+      "passed": true
+    },
+    {
+      "name": "time_dash",
+      "passed": true
+    },
+    {
+      "name": "time_blank",
+      "passed": true
+    },
+    {
+      "name": "time_invalid",
+      "passed": true
+    },
+    {
+      "name": "null_task",
+      "passed": true
+    },
+    {
+      "name": "empty_rover",
+      "passed": true
+    },
+    {
+      "name": "empty_base",
+      "passed": true
+    },
+    {
+      "name": "memory_copy",
+      "passed": true
+    },
+    {
+      "name": "memory_empty",
+      "passed": true
+    },
+    {
+      "name": "parser_23",
+      "passed": true
+    },
+    {
+      "name": "parser_24",
+      "passed": true
+    },
+    {
+      "name": "parser_blank_short",
+      "passed": true
+    },
+    {
+      "name": "parser_bad_number",
+      "passed": true
+    },
+    {
+      "name": "parser_null_station",
+      "passed": true
+    },
+    {
+      "name": "metadata_copy",
+      "passed": true
+    },
+    {
+      "name": "callback_replace_clear",
+      "passed": true
+    },
+    {
+      "name": "callback_exception",
+      "passed": true
+    },
+    {
+      "name": "unknown_status",
+      "passed": true
+    }
+  ],
+  "passed": 18,
+  "count": 18,
+  "jnaSize": 208,
+  "jnaOffsets": {
+    "calMode": 0,
+    "es": 8,
+    "ee": 56,
+    "ti": 104,
+    "vrsMode": 108,
+    "navsys": 112,
+    "solstatic": 116,
+    "fixThresh": 120,
+    "rb": 128,
+    "outfile": 152,
+    "brdcBuf": 160,
+    "brdcLen": 168,
+    "roverBuf": 176,
+    "roverLen": 184,
+    "baseBuf": 192,
+    "baseLen": 200
+  },
+  "nativeVersion": "1.0.0",
+  "nativeSolverInvoked": false
+}

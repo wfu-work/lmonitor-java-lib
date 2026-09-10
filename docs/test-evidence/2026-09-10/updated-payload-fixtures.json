@@ -1,0 +1,295 @@
+[
+  {
+    "station": "PSYCMM0010",
+    "sources": [
+      {
+        "path": "/Users/wfu/Downloads/gnss/raw/2026/249/00/PSYCMM0010.2026249binRTCM3",
+        "bytes": 212784,
+        "sha256": "8b786962ce46b19da28bd0ad32b04b3e5955d005355c7bd922bc131e86f1cc3c"
+      },
+      {
+        "path": "/Users/wfu/Downloads/gnss/raw/2026/249/01/PSYCMM0010.2026249binRTCM3",
+        "bytes": 212194,
+        "sha256": "5c3e8b268ecc26e850185be38297661fcda53baf3e06150bf13ef33cb4397c6e"
+      },
+      {
+        "path": "/Users/wfu/Downloads/gnss/raw/2026/249/02/PSYCMM0010.2026249binRTCM3",
+        "bytes": 200772,
+        "sha256": "256a745eb407b8f0bf64303f8a13b4bfc15e805fc3a2f56473c2adab61a456f5"
+      },
+      {
+        "path": "/Users/wfu/Downloads/gnss/raw/2026/249/03/PSYCMM0010.2026249binRTCM3",
+        "bytes": 207458,
+        "sha256": "515470ab102ef90032d164ee07f0d2d33dd8d6f1b6e8ea5751217f4901db51bb"
+      },
+      {
+        "path": "/Users/wfu/Downloads/gnss/raw/2026/249/04/PSYCMM0010.2026249binRTCM3",
+        "bytes": 217140,
+        "sha256": "1927783e339a6931c8806b24f8b255d774309fd558b206bfab9e0cf991269378"
+      },
+      {
+        "path": "/Users/wfu/Downloads/gnss/raw/2026/249/05/PSYCMM0010.2026249binRTCM3",
+        "bytes": 214990,
+        "sha256": "c7ce2b73f69b02b49adf0b4d2941a0d2b31e9bd8e3a63d4d59d4482d615c0096"
+      },
+      {
+        "path": "/Users/wfu/Downloads/gnss/raw/2026/249/06/PSYCMM0010.2026249binRTCM3",
+        "bytes": 216494,
+        "sha256": "bd982eb9f9ec3eba8530f6d02d3be0ed9606c8cb3a40d3adfa8881ce76baf551"
+      },
+      {
+        "path": "/Users/wfu/Downloads/gnss/raw/2026/249/07/PSYCMM0010.2026249binRTCM3",
+        "bytes": 215986,
+        "sha256": "a1496b1f9f909c7fba857272ad2899ff9ea0c730cb85e4b883289afdde53fcde"
+      },
+      {
+        "path": "/Users/wfu/Downloads/gnss/raw/2026/249/08/PSYCMM0010.2026249binRTCM3",
+        "bytes": 203667,
+        "sha256": "f5dee865f6e4f8f797cdfa32a83482c5f36ab24edc073246e8a9317d67add9c8"
+      },
+      {
+        "path": "/Users/wfu/Downloads/gnss/raw/2026/249/09/PSYCMM0010.2026249binRTCM3",
+        "bytes": 206644,
+        "sha256": "0e9f65ad044adcf898557704afa17bf0d3ee15adbfd9eced7b7c320d393e2e68"
+      },
+      {
+        "path": "/Users/wfu/Downloads/gnss/raw/2026/249/10/PSYCMM0010.2026249binRTCM3",
+        "bytes": 207040,
+        "sha256": "24b74312681f56908c8067c4abf4dad8341a5981f326cee4f0bc9b7cf957a9cf"
+      },
+      {
+        "path": "/Users/wfu/Downloads/gnss/raw/2026/249/11/PSYCMM0010.2026249binRTCM3",
+        "bytes": 211611,
+        "sha256": "432def4ba90c5a49a99a94c2b2833d23f98510c226e66b18d3e5603b73693b6f"
+      },
+      {
+        "path": "/Users/wfu/Downloads/gnss/raw/2026/249/12/PSYCMM0010.2026249binRTCM3",
+        "bytes": 216684,
+        "sha256": "82ed2325dd023f16ea684eed8c8564a0411384c2327795cb85047f237b3702a7"
+      }
+    ],
+    "bytes": 2499996,
+    "sha256": "4939854d0517a5c7307352edc6a5e6aaf313e9af8e70385e02587c6568d80445",
+    "frames": 25738,
+    "crc_failures": 0,
+    "skipped_bytes": 0,
+    "trailing_bytes": 0,
+    "message_types": {
+      "1074": 3024,
+      "1084": 3023,
+      "1094": 3023,
+      "1114": 3023,
+      "1124": 3023,
+      "1005": 3023,
+      "1006": 3023,
+      "1033": 3023,
+      "1019": 326,
+      "1020": 202,
+      "1042": 420,
+      "1044": 58,
+      "1045": 272,
+      "1046": 275
+    },
+    "msm_epochs": {
+      "1074": {
+        "count": 3024,
+        "first_ms": 30000,
+        "last_ms": 45375000,
+        "intervals_ms": {
+          "15000": 3023
+        }
+      },
+      "1084": {
+        "count": 3023,
+        "first_ms": 10812000,
+        "last_ms": 56142000,
+        "intervals_ms": {
+          "15000": 3022
+        }
+      },
+      "1094": {
+        "count": 3023,
+        "first_ms": 30000,
+        "last_ms": 45360000,
+        "intervals_ms": {
+          "15000": 3022
+        }
+      },
+      "1114": {
+        "count": 3023,
+        "first_ms": 30000,
+        "last_ms": 45360000,
+        "intervals_ms": {
+          "15000": 3022
+        }
+      },
+      "1124": {
+        "count": 3023,
+        "first_ms": 16000,
+        "last_ms": 45346000,
+        "intervals_ms": {
+          "15000": 3022
+        }
+      }
+    },
+    "station_ids": [
+      0
+    ],
+    "ecef": [
+      [
+        -1936268.7794,
+        5104057.9877,
+        3287902.9041
+      ]
+    ]
+  },
+  {
+    "station": "PSYCMM129",
+    "sources": [
+      {
+        "path": "/Users/wfu/Downloads/gnss/raw/2026/249/00/PSYCMM129.2026249binRTCM3",
+        "bytes": 203259,
+        "sha256": "f123582112ef93081386cfd1d4aa8d91e9b96971eae57e4037176ec9ff025ca8"
+      },
+      {
+        "path": "/Users/wfu/Downloads/gnss/raw/2026/249/01/PSYCMM129.2026249binRTCM3",
+        "bytes": 204968,
+        "sha256": "4a532e8e5645cb0089d3ecc5a7e14f76585a03475eaab0f8610bbb6c53a3e88b"
+      },
+      {
+        "path": "/Users/wfu/Downloads/gnss/raw/2026/249/02/PSYCMM129.2026249binRTCM3",
+        "bytes": 205916,
+        "sha256": "526680fa4cdf813a12983ac1893b848a9635921c7f9f7f985197cf92adbb6285"
+      },
+      {
+        "path": "/Users/wfu/Downloads/gnss/raw/2026/249/03/PSYCMM129.2026249binRTCM3",
+        "bytes": 203281,
+        "sha256": "c5a4880f84f020771541f8bcee89119ddd818bf8c4708f118f1a4a02e8693082"
+      },
+      {
+        "path": "/Users/wfu/Downloads/gnss/raw/2026/249/04/PSYCMM129.2026249binRTCM3",
+        "bytes": 212624,
+        "sha256": "d6b024e1808f995692c1800ae30077d3bb8e84707d946429357a5b6710265bf7"
+      },
+      {
+        "path": "/Users/wfu/Downloads/gnss/raw/2026/249/05/PSYCMM129.2026249binRTCM3",
+        "bytes": 212112,
+        "sha256": "561228c69bdf670d54c94b36e622730d76621c8f331e2a6349c951c0a0566d0a"
+      },
+      {
+        "path": "/Users/wfu/Downloads/gnss/raw/2026/249/06/PSYCMM129.2026249binRTCM3",
+        "bytes": 203448,
+        "sha256": "e4b043fca096cc82cdc33fc28a79f17a3d90069050dd615566d2bd816e1c8394"
+      },
+      {
+        "path": "/Users/wfu/Downloads/gnss/raw/2026/249/07/PSYCMM129.2026249binRTCM3",
+        "bytes": 194841,
+        "sha256": "3d3e360af4694d0963bfadfea3e73798e8c6c35dd906040bb8300de831ae5100"
+      },
+      {
+        "path": "/Users/wfu/Downloads/gnss/raw/2026/249/08/PSYCMM129.2026249binRTCM3",
+        "bytes": 199000,
+        "sha256": "2cbb3e3f99d08838c0da6cee69c622439f6bc12f741f7bebd4686f01f2af5e39"
+      },
+      {
+        "path": "/Users/wfu/Downloads/gnss/raw/2026/249/09/PSYCMM129.2026249binRTCM3",
+        "bytes": 194873,
+        "sha256": "c11356815364a706a6e1ee1777498c01bd44c7299c47bb39dfdec87e86ff2fbe"
+      },
+      {
+        "path": "/Users/wfu/Downloads/gnss/raw/2026/249/10/PSYCMM129.2026249binRTCM3",
+        "bytes": 195530,
+        "sha256": "7b46baa6e274ce4aa9eadbbe83c1fd2f4efcba0892e927f4f206714ee105047d"
+      },
+      {
+        "path": "/Users/wfu/Downloads/gnss/raw/2026/249/11/PSYCMM129.2026249binRTCM3",
+        "bytes": 201570,
+        "sha256": "2d717eee6dd5f39fbb2befa3326d861721d7ae8f6ddd101bb1aadee18dc1f877"
+      },
+      {
+        "path": "/Users/wfu/Downloads/gnss/raw/2026/249/12/PSYCMM129.2026249binRTCM3",
+        "bytes": 198556,
+        "sha256": "85c3cca03579c9a9b6bf2cedba66f2560a4d6aabaee658b44b5968e2d240fd9f"
+      },
+      {
+        "path": "/Users/wfu/Downloads/gnss/raw/2026/249/13/PSYCMM129.2026249binRTCM3",
+        "bytes": 204192,
+        "sha256": "ecb23ceb11b01e19764cd7d2728aedbb938bb49c0136170f286975367d8c32ec"
+      }
+    ],
+    "bytes": 2499899,
+    "sha256": "fdbcb6bee1cf8077477901f59eb7cf7f7e1497ecf270645020e21fdb2db5fe94",
+    "frames": 26748,
+    "crc_failures": 0,
+    "skipped_bytes": 0,
+    "trailing_bytes": 0,
+    "message_types": {
+      "1074": 3158,
+      "1084": 3158,
+      "1094": 3158,
+      "1114": 3158,
+      "1124": 3157,
+      "1005": 3157,
+      "1006": 3157,
+      "1033": 3157,
+      "1019": 293,
+      "1020": 205,
+      "1042": 428,
+      "1044": 66,
+      "1045": 239,
+      "1046": 257
+    },
+    "msm_epochs": {
+      "1074": {
+        "count": 3158,
+        "first_ms": 30000,
+        "last_ms": 47385000,
+        "intervals_ms": {
+          "15000": 3157
+        }
+      },
+      "1084": {
+        "count": 3158,
+        "first_ms": 10812000,
+        "last_ms": 58167000,
+        "intervals_ms": {
+          "15000": 3157
+        }
+      },
+      "1094": {
+        "count": 3158,
+        "first_ms": 30000,
+        "last_ms": 47385000,
+        "intervals_ms": {
+          "15000": 3157
+        }
+      },
+      "1114": {
+        "count": 3158,
+        "first_ms": 30000,
+        "last_ms": 47385000,
+        "intervals_ms": {
+          "15000": 3157
+        }
+      },
+      "1124": {
+        "count": 3157,
+        "first_ms": 16000,
+        "last_ms": 47356000,
+        "intervals_ms": {
+          "15000": 3156
+        }
+      }
+    },
+    "station_ids": [
+      0
+    ],
+    "ecef": [
+      [
+        -1946930.7247,
+        5119562.1277,
+        3257504.916
+      ]
+    ]
+  }
+]

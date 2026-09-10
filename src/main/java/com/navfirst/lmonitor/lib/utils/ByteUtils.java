@@ -5,7 +5,7 @@ import java.nio.charset.StandardCharsets;
 /**
  * 创建：馥溪凝
  * 日期：2022/04/24 14:51
- * 描述：com.navfirst.dmonitor.lib.utils
+ * 描述：com.navfirst.lmonitor.lib.utils
  */
 public class ByteUtils {
 

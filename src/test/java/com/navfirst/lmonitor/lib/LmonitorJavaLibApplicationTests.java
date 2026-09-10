@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 class LmonitorJavaLibApplicationTests {
 
-    private static final Path BRDC_PATH = Path.of("/Users/wfu/Downloads/GSSK01.2026210binRTCM3");
     private static final Path ROVER_PATH = Path.of("/Users/wfu/Downloads/GSSK01.2026210binRTCM3");
     private static final Path BASE_PATH = Path.of("/Users/wfu/Downloads/GSSK01.2026210binRTCM3");
     private static final String LICENSE_PATH = "/Users/wfu/Downloads/license.lic";
@@ -45,7 +44,6 @@ class LmonitorJavaLibApplicationTests {
         assumeTrue(Files.isRegularFile(Path.of(LICENSE_PATH)), "缺少 license：" + LICENSE_PATH);
 
         this.monitorService.setHandlerData(monitorData -> log.info("解算结果：{}", monitorData));
-        byte[] brdcBytes = Files.isRegularFile(BRDC_PATH) ? Files.readAllBytes(BRDC_PATH) : null;
         MonitorTask monitorTask = MonitorTask.builder()
                 .rtMode(3)
                 .timeStart("2026/07/29 04:00:00")
@@ -56,7 +54,6 @@ class LmonitorJavaLibApplicationTests {
                 .processInterval(600)
                 .roverName("GSSK01")
                 .baseName("GSSK01")
-                .brdcBytes(brdcBytes)
                 .roverBytes(Files.readAllBytes(ROVER_PATH))
                 .baseBytes(Files.readAllBytes(BASE_PATH))
                 .outMode(1)

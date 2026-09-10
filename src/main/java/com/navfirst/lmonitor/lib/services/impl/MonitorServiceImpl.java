@@ -19,7 +19,7 @@ import java.util.Arrays;
 /**
  * 创建：馥溪凝
  * 日期：2022/04/09 15:26
- * 描述：com.navfirst.dmonitor.lib.services.impl
+ * 描述：com.navfirst.lmonitor.lib.services.impl
  */
 @Slf4j
 @Service
@@ -102,10 +102,18 @@ public class MonitorServiceImpl implements MonitorService {
                         defaultDouble(monitorTask.getBaseZ())
                 })
                 .outfile(StringUtils.defaultString(monitorTask.getOutFile()))
+                .ionoopt(monitorTask.getIonoopt())
+                .tropopt(monitorTask.getTropopt())
+                .armode(monitorTask.getArmode())
+                .sateph(monitorTask.getSateph())
+                .nf(monitorTask.getNf())
+                .minfix(monitorTask.getMinfix())
+                .warmupMin(monitorTask.getWarmupMin())
                 .build();
         monitorInfo.setBrdc(appendZeroTerminator(monitorTask.getBrdcBytes()));
         monitorInfo.setRover(monitorTask.getRoverBytes());
         monitorInfo.setBase(monitorTask.getBaseBytes());
+        monitorInfo.setPrec(monitorTask.getPrecBytes());
         return monitorInfo;
     }
 

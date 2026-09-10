@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 /**
  * 创建：馥溪凝
  * 日期：2021/10/11 12:31
- * 描述：com.navfirst.dmonitor.lib.library
+ * 描述：com.navfirst.lmonitor.lib.library
  */
 public class MyStructure extends Structure {
 

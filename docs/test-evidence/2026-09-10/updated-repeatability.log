@@ -1,0 +1,12 @@
+License info：[uuid]:[UUID REDACTED], [endTime]:1796025259000
+2026/09/10 13:22:52 [monitor solbuf]: 2026/09/06 13:00:00 2026/09/06 14:00:00 0.1688 0.0033 0.0147 0.5462 0.9917 0.9917 -4456.0256 35469.3834 -72.5837 Fixed 3 20 0 15 15 238 238  0  0 0.2s - fix rate 0.55 < threshold 0.75
+13:22:52.794 [pool-1-thread-1] ERROR com.navfirst.lmonitor.lib.services.impl.MonitorDataServiceImpl -- 解算结果：2026/09/06 13:00:00 2026/09/06 14:00:00 0.1688 0.0033 0.0147 0.5462 0.9917 0.9917 -4456.0256 35469.3834 -72.5837 Fixed 3 20 0 15 15 238 238  0  0 0.2s
+License info：[uuid]:[UUID REDACTED], [endTime]:1796025259000
+2026/09/10 13:22:53 [monitor solbuf]: 2026/09/06 13:00:00 2026/09/06 14:00:00 0.1688 0.0033 0.0147 0.5462 0.9917 0.9917 -4456.0256 35469.3834 -72.5837 Fixed 3 20 0 15 15 238 238  0  0 0.2s - fix rate 0.55 < threshold 0.75
+13:22:53.020 [pool-1-thread-1] ERROR com.navfirst.lmonitor.lib.services.impl.MonitorDataServiceImpl -- 解算结果：2026/09/06 13:00:00 2026/09/06 14:00:00 0.1688 0.0033 0.0147 0.5462 0.9917 0.9917 -4456.0256 35469.3834 -72.5837 Fixed 3 20 0 15 15 238 238  0  0 0.2s
+License info：[uuid]:[UUID REDACTED], [endTime]:1796025259000
+2026/09/10 13:22:53 [monitor solbuf]: 2026/09/06 13:00:00 2026/09/06 14:00:00 0.1688 0.0033 0.0147 0.5462 0.9917 0.9917 -4456.0256 35469.3834 -72.5837 Fixed 3 20 0 15 15 238 238  0  0 0.2s - fix rate 0.55 < threshold 0.75
+13:22:53.234 [pool-1-thread-1] ERROR com.navfirst.lmonitor.lib.services.impl.MonitorDataServiceImpl -- 解算结果：2026/09/06 13:00:00 2026/09/06 14:00:00 0.1688 0.0033 0.0147 0.5462 0.9917 0.9917 -4456.0256 35469.3834 -72.5837 Fixed 3 20 0 15 15 238 238  0  0 0.2s
+License info：[uuid]:[UUID REDACTED], [endTime]:1796025259000
+2026/09/10 13:22:53 [monitor solbuf]: 2026/09/06 13:00:00 2026/09/06 14:00:00 0.1688 0.0033 0.0147 0.5462 0.9917 0.9917 -4456.0256 35469.3834 -72.5837 Fixed 3 20 0 15 15 238 238  0  0 0.2s - fix rate 0.55 < threshold 0.75
+13:22:53.450 [pool-1-thread-1] ERROR com.navfirst.lmonitor.lib.services.impl.MonitorDataServiceImpl -- 解算结果：2026/09/06 13:00:00 2026/09/06 14:00:00 0.1688 0.0033 0.0147 0.5462 0.9917 0.9917 -4456.0256 35469.3834 -72.5837 Fixed 3 20 0 15 15 238 238  0  0 0.2s

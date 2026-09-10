@@ -1,0 +1,503 @@
+[
+  {
+    "source": "/Users/wfu/Downloads/gnss/raw/2026/249/12/PSYCMM0010.2026249binRTCM3",
+    "source_sha256": "82ed2325dd023f16ea684eed8c8564a0411384c2327795cb85047f237b3702a7",
+    "source_bytes": 216684,
+    "hour": 12,
+    "station": "PSYCMM0010",
+    "bytes": 204462,
+    "sha256": "c20049e2f135bda86e10cc15602f9833ad1912e5ac339bda0c0738b98a107804",
+    "frames": 2037,
+    "crc_failures": 0,
+    "skipped_bytes": 0,
+    "trailing_bytes": 0,
+    "message_types": {
+      "1074": 240,
+      "1084": 240,
+      "1094": 240,
+      "1114": 240,
+      "1124": 240,
+      "1005": 240,
+      "1006": 240,
+      "1033": 240,
+      "1019": 20,
+      "1020": 20,
+      "1042": 37,
+      "1044": 4,
+      "1045": 17,
+      "1046": 19
+    },
+    "msm_epochs": {
+      "1074": {
+        "count": 240,
+        "first_ms": 43230000,
+        "last_ms": 46815000,
+        "intervals_ms": {
+          "15000": 239
+        }
+      },
+      "1084": {
+        "count": 240,
+        "first_ms": 54012000,
+        "last_ms": 57597000,
+        "intervals_ms": {
+          "15000": 239
+        }
+      },
+      "1094": {
+        "count": 240,
+        "first_ms": 43230000,
+        "last_ms": 46815000,
+        "intervals_ms": {
+          "15000": 239
+        }
+      },
+      "1114": {
+        "count": 240,
+        "first_ms": 43230000,
+        "last_ms": 46815000,
+        "intervals_ms": {
+          "15000": 239
+        }
+      },
+      "1124": {
+        "count": 240,
+        "first_ms": 43216000,
+        "last_ms": 46801000,
+        "intervals_ms": {
+          "15000": 239
+        }
+      }
+    },
+    "station_ids": [
+      0
+    ],
+    "ecef": [
+      [
+        -1936268.7794,
+        5104057.9877,
+        3287902.9041
+      ]
+    ]
+  },
+  {
+    "source": "/Users/wfu/Downloads/gnss/raw/2026/249/12/PSYCMM0009.2026249binRTCM3",
+    "source_sha256": "11f403702a9e238ccd70a42d10239c5d111e801d992f5a8074d3ecc10cc87240",
+    "source_bytes": 223008,
+    "hour": 12,
+    "station": "PSYCMM0009",
+    "bytes": 210744,
+    "sha256": "fc6739c10ce525a4c574142e78644a861e0bd587fe5efb950e5f12ca8a8f01dd",
+    "frames": 2044,
+    "crc_failures": 0,
+    "skipped_bytes": 0,
+    "trailing_bytes": 0,
+    "message_types": {
+      "1074": 240,
+      "1084": 240,
+      "1094": 240,
+      "1114": 240,
+      "1124": 240,
+      "1005": 240,
+      "1006": 240,
+      "1033": 240,
+      "1019": 21,
+      "1020": 20,
+      "1042": 41,
+      "1044": 4,
+      "1045": 19,
+      "1046": 19
+    },
+    "msm_epochs": {
+      "1074": {
+        "count": 240,
+        "first_ms": 43230000,
+        "last_ms": 46815000,
+        "intervals_ms": {
+          "15000": 239
+        }
+      },
+      "1084": {
+        "count": 240,
+        "first_ms": 54012000,
+        "last_ms": 57597000,
+        "intervals_ms": {
+          "15000": 239
+        }
+      },
+      "1094": {
+        "count": 240,
+        "first_ms": 43230000,
+        "last_ms": 46815000,
+        "intervals_ms": {
+          "15000": 239
+        }
+      },
+      "1114": {
+        "count": 240,
+        "first_ms": 43230000,
+        "last_ms": 46815000,
+        "intervals_ms": {
+          "15000": 239
+        }
+      },
+      "1124": {
+        "count": 240,
+        "first_ms": 43216000,
+        "last_ms": 46801000,
+        "intervals_ms": {
+          "15000": 239
+        }
+      }
+    },
+    "station_ids": [
+      0
+    ],
+    "ecef": [
+      [
+        -1936213.2186,
+        5104085.464,
+        3287878.1762
+      ]
+    ]
+  },
+  {
+    "source": "/Users/wfu/Downloads/gnss/raw/2026/249/12/PSYCMM129.2026249binRTCM3",
+    "source_sha256": "85c3cca03579c9a9b6bf2cedba66f2560a4d6aabaee658b44b5968e2d240fd9f",
+    "source_bytes": 198556,
+    "hour": 12,
+    "station": "PSYCMM129",
+    "bytes": 186328,
+    "sha256": "70d0db8808dbc63a232c5c5686a6858735a6f1aa0f577c94de23e7b3675765a3",
+    "frames": 2038,
+    "crc_failures": 0,
+    "skipped_bytes": 0,
+    "trailing_bytes": 0,
+    "message_types": {
+      "1074": 240,
+      "1084": 240,
+      "1094": 240,
+      "1114": 240,
+      "1124": 240,
+      "1005": 240,
+      "1006": 240,
+      "1033": 240,
+      "1019": 23,
+      "1020": 18,
+      "1042": 34,
+      "1044": 6,
+      "1045": 18,
+      "1046": 19
+    },
+    "msm_epochs": {
+      "1074": {
+        "count": 240,
+        "first_ms": 43230000,
+        "last_ms": 46815000,
+        "intervals_ms": {
+          "15000": 239
+        }
+      },
+      "1084": {
+        "count": 240,
+        "first_ms": 54012000,
+        "last_ms": 57597000,
+        "intervals_ms": {
+          "15000": 239
+        }
+      },
+      "1094": {
+        "count": 240,
+        "first_ms": 43230000,
+        "last_ms": 46815000,
+        "intervals_ms": {
+          "15000": 239
+        }
+      },
+      "1114": {
+        "count": 240,
+        "first_ms": 43230000,
+        "last_ms": 46815000,
+        "intervals_ms": {
+          "15000": 239
+        }
+      },
+      "1124": {
+        "count": 240,
+        "first_ms": 43216000,
+        "last_ms": 46801000,
+        "intervals_ms": {
+          "15000": 239
+        }
+      }
+    },
+    "station_ids": [
+      0
+    ],
+    "ecef": [
+      [
+        -1946930.7247,
+        5119562.1277,
+        3257504.916
+      ]
+    ]
+  },
+  {
+    "source": "/Users/wfu/Downloads/gnss/raw/2026/249/13/PSYCMM0010.2026249binRTCM3",
+    "source_sha256": "0f893836290febc9f116eeb791cc5f3efd5d17286800db5b0f27fb675252c3fd",
+    "source_bytes": 218990,
+    "hour": 13,
+    "station": "PSYCMM0010",
+    "bytes": 206756,
+    "sha256": "b0526b68ccf4e8905b96ff49f6f328f926b9d4f64adb6326d54981be3aaefd92",
+    "frames": 2039,
+    "crc_failures": 0,
+    "skipped_bytes": 0,
+    "trailing_bytes": 0,
+    "message_types": {
+      "1074": 239,
+      "1084": 239,
+      "1094": 239,
+      "1114": 239,
+      "1124": 239,
+      "1005": 239,
+      "1006": 239,
+      "1033": 239,
+      "1019": 25,
+      "1020": 20,
+      "1042": 39,
+      "1044": 6,
+      "1045": 17,
+      "1046": 20
+    },
+    "msm_epochs": {
+      "1074": {
+        "count": 239,
+        "first_ms": 46830000,
+        "last_ms": 50415000,
+        "intervals_ms": {
+          "15000": 237,
+          "30000": 1
+        }
+      },
+      "1084": {
+        "count": 239,
+        "first_ms": 57612000,
+        "last_ms": 61197000,
+        "intervals_ms": {
+          "15000": 237,
+          "30000": 1
+        }
+      },
+      "1094": {
+        "count": 239,
+        "first_ms": 46830000,
+        "last_ms": 50415000,
+        "intervals_ms": {
+          "15000": 237,
+          "30000": 1
+        }
+      },
+      "1114": {
+        "count": 239,
+        "first_ms": 46830000,
+        "last_ms": 50415000,
+        "intervals_ms": {
+          "15000": 237,
+          "30000": 1
+        }
+      },
+      "1124": {
+        "count": 239,
+        "first_ms": 46816000,
+        "last_ms": 50401000,
+        "intervals_ms": {
+          "15000": 237,
+          "30000": 1
+        }
+      }
+    },
+    "station_ids": [
+      0
+    ],
+    "ecef": [
+      [
+        -1936268.7794,
+        5104057.9877,
+        3287902.9041
+      ]
+    ]
+  },
+  {
+    "source": "/Users/wfu/Downloads/gnss/raw/2026/249/13/PSYCMM0009.2026249binRTCM3",
+    "source_sha256": "f2558e783a2091789d88bdff269bc208b319fa7d3adddb6d14c7cbf16ec93a4f",
+    "source_bytes": 224473,
+    "hour": 13,
+    "station": "PSYCMM0009",
+    "bytes": 212215,
+    "sha256": "bdcab977b4073787bcaa6c2e3526bd8aded3229d7fb83368b3fa78cab219aa36",
+    "frames": 2043,
+    "crc_failures": 0,
+    "skipped_bytes": 0,
+    "trailing_bytes": 0,
+    "message_types": {
+      "1074": 239,
+      "1084": 239,
+      "1094": 239,
+      "1114": 239,
+      "1124": 239,
+      "1005": 239,
+      "1006": 239,
+      "1033": 239,
+      "1019": 26,
+      "1020": 21,
+      "1042": 42,
+      "1044": 5,
+      "1045": 19,
+      "1046": 18
+    },
+    "msm_epochs": {
+      "1074": {
+        "count": 239,
+        "first_ms": 46830000,
+        "last_ms": 50415000,
+        "intervals_ms": {
+          "15000": 237,
+          "30000": 1
+        }
+      },
+      "1084": {
+        "count": 239,
+        "first_ms": 57612000,
+        "last_ms": 61197000,
+        "intervals_ms": {
+          "15000": 237,
+          "30000": 1
+        }
+      },
+      "1094": {
+        "count": 239,
+        "first_ms": 46830000,
+        "last_ms": 50415000,
+        "intervals_ms": {
+          "15000": 237,
+          "30000": 1
+        }
+      },
+      "1114": {
+        "count": 239,
+        "first_ms": 46830000,
+        "last_ms": 50415000,
+        "intervals_ms": {
+          "15000": 237,
+          "30000": 1
+        }
+      },
+      "1124": {
+        "count": 239,
+        "first_ms": 46816000,
+        "last_ms": 50401000,
+        "intervals_ms": {
+          "15000": 237,
+          "30000": 1
+        }
+      }
+    },
+    "station_ids": [
+      0
+    ],
+    "ecef": [
+      [
+        -1936213.2186,
+        5104085.464,
+        3287878.1762
+      ]
+    ]
+  },
+  {
+    "source": "/Users/wfu/Downloads/gnss/raw/2026/249/13/PSYCMM129.2026249binRTCM3",
+    "source_sha256": "ecb23ceb11b01e19764cd7d2728aedbb938bb49c0136170f286975367d8c32ec",
+    "source_bytes": 204192,
+    "hour": 13,
+    "station": "PSYCMM129",
+    "bytes": 191958,
+    "sha256": "20d3c531802d0423dd050e9ff1694dc9a8a549dc3cd97ab8b581390e4fea005a",
+    "frames": 2039,
+    "crc_failures": 0,
+    "skipped_bytes": 0,
+    "trailing_bytes": 0,
+    "message_types": {
+      "1074": 239,
+      "1084": 239,
+      "1094": 239,
+      "1114": 239,
+      "1124": 239,
+      "1005": 239,
+      "1006": 239,
+      "1033": 239,
+      "1019": 26,
+      "1020": 19,
+      "1042": 35,
+      "1044": 6,
+      "1045": 19,
+      "1046": 22
+    },
+    "msm_epochs": {
+      "1074": {
+        "count": 239,
+        "first_ms": 46830000,
+        "last_ms": 50415000,
+        "intervals_ms": {
+          "15000": 237,
+          "30000": 1
+        }
+      },
+      "1084": {
+        "count": 239,
+        "first_ms": 57612000,
+        "last_ms": 61197000,
+        "intervals_ms": {
+          "15000": 237,
+          "30000": 1
+        }
+      },
+      "1094": {
+        "count": 239,
+        "first_ms": 46830000,
+        "last_ms": 50415000,
+        "intervals_ms": {
+          "15000": 237,
+          "30000": 1
+        }
+      },
+      "1114": {
+        "count": 239,
+        "first_ms": 46830000,
+        "last_ms": 50415000,
+        "intervals_ms": {
+          "15000": 237,
+          "30000": 1
+        }
+      },
+      "1124": {
+        "count": 239,
+        "first_ms": 46816000,
+        "last_ms": 50401000,
+        "intervals_ms": {
+          "15000": 237,
+          "30000": 1
+        }
+      }
+    },
+    "station_ids": [
+      0
+    ],
+    "ecef": [
+      [
+        -1946930.7247,
+        5119562.1277,
+        3257504.916
+      ]
+    ]
+  }
+]

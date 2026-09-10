@@ -11,7 +11,7 @@ import java.io.Serializable;
 /**
  * 创建：馥溪凝
  * 日期：2022/04/09 15:23
- * 描述：com.navfirst.dmonitor.lib.domains
+ * 描述：com.navfirst.lmonitor.lib.domains
  */
 @Data
 @Builder
@@ -23,7 +23,7 @@ public class MonitorTask implements Serializable {
     private static final long serialVersionUID = 4168483660656762466L;
 
     /**
-     * 解算状态，0代表SPP，2代表动态，3代表静态
+     * 解算模式，0代表SPP，1代表DGPS，2代表动态，3代表静态
      */
     @Builder.Default
     private int rtMode = 3;
@@ -83,6 +83,32 @@ public class MonitorTask implements Serializable {
      * 测站文件流
      */
     private byte[] roverBytes;
+
+    /**
+     * 精密星历文件流（SP3 文本），可为空
+     */
+    private byte[] precBytes;
+
+    /** 电离层选项，0 使用原生默认值 IFLC。 */
+    private int ionoopt;
+
+    /** 对流层选项，0 使用原生默认值 ZTD 估计。 */
+    private int tropopt;
+
+    /** 模糊度固定模式，0 使用原生默认值 continuous。 */
+    private int armode;
+
+    /** 星历选项，0 自动选择：有精密星历用 PREC，否则用 BRDC。 */
+    private int sateph;
+
+    /** 频点数，0 使用原生默认值 2。 */
+    private int nf;
+
+    /** 首次固定需连续通过的历元数，0 使用原生默认值 10。 */
+    private int minfix;
+
+    /** 预热时长（分钟），0 关闭；预热期仅驱动滤波，不计入报告。 */
+    private double warmupMin;
 
     /**
      * 输出结果：0-历元解 1-单一解

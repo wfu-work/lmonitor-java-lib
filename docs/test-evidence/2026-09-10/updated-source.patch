@@ -1,0 +1,722 @@
+diff --git a/README.md b/README.md
+index c8bfae1..eb8d76b 100644
+--- a/README.md
++++ b/README.md
+@@ -4,26 +4,26 @@
+ 
+ 当前工程内置的原生库：
+ 
+-- `src/main/resources/linux-x86-64/libDMonitor.so`
+-- `src/main/resources/linux-aarch64/libDMonitor.so`
+-- `src/main/resources/darwin-aarch64/libDMonitor.dylib`
++- `src/main/resources/linux-x86-64/libLMonitor.so`
++- `src/main/resources/linux-aarch64/libLMonitor.so`
++- `src/main/resources/darwin-aarch64/libLMonitor.dylib`
+ 
+ 核心调用入口有两层：
+ 
+ - 推荐：通过 Spring 注入 `MonitorService`
+-- 直接：通过 JNA 调用 `MonitorLibrary.INSTANCE.startGMonitor(...)`
++- 直接：通过 JNA 调用 `MonitorLibrary.INSTANCE.startLMonitor(...)`
+ 
+ ## 运行要求
+ 
+ - JDK 20 或以上
+ - Spring Boot 3.2.x
+ - JNA 5.12.x
+-- 当前运行系统架构需要有对应的 `libDMonitor` 原生库
++- 当前运行系统架构需要有对应的 `libLMonitor` 原生库
+ - 调用解算时必须提供 license 路径
+ 
+ 如果在 IDE 或外部工程中出现 `UnsatisfiedLinkError`，优先检查：
+ 
+-- `libDMonitor.so` 或 `libDMonitor.dylib` 是否在 classpath 资源中
++- `libLMonitor.so` 或 `libLMonitor.dylib` 是否在 classpath 资源中
+ - 当前机器架构是否和资源目录匹配，例如 `linux-x86-64`、`linux-aarch64`、`darwin-aarch64`
+ - 必要时手动指定：
+ 
+@@ -37,27 +37,25 @@ JNA 接口定义在：
+ 
+ ```java
+ import com.navfirst.lmonitor.lib.library.MonitorLibrary;
+-
+-MonitorLibrary
+ ```
+ 
+ 当前暴露的方法：
+ 
+ ```java
+-String getGVersion();
++String getLVersion();
+ 
+ String getUuid();
+ 
+-String startGMonitor(MonitorStreamInfo monitorInfo, String license);
++String startLMonitor(MonitorStreamInfo monitorInfo, String license);
+ ```
+ 
+ 说明：
+ 
+-- `getGVersion()`：获取算法库版本。
++- `getLVersion()`：获取算法库版本。
+ - `getUuid()`：获取当前机器唯一标识，用于申请 license。
+-- `startGMonitor(...)`：调用原生库执行解算。
++- `startLMonitor(...)`：调用原生库执行解算。
+ 
+-`startGMonitor` 返回值格式为：
++`startLMonitor` 返回值格式为：
+ 
+ ```text
+ <solBuf>
+@@ -71,8 +69,8 @@ String startGMonitor(MonitorStreamInfo monitorInfo, String license);
+ 在 Spring 环境中直接注入：
+ 
+ ```java
+-import domains.com.navfirst.lmonitor.lib.MonitorTask;
+-import services.com.navfirst.lmonitor.lib.MonitorService;
++import com.navfirst.lmonitor.lib.domains.MonitorTask;
++import com.navfirst.lmonitor.lib.services.MonitorService;
+ import lombok.RequiredArgsConstructor;
+ import org.springframework.stereotype.Service;
+ 
+@@ -90,6 +88,8 @@ public class DemoService {
+         byte[] brdcBytes = Files.isRegularFile(brdcPath) ? Files.readAllBytes(brdcPath) : null;
+         byte[] roverBytes = Files.readAllBytes(Path.of("/path/to/XPJZ01.2026140binRTCM3"));
+         byte[] baseBytes = Files.readAllBytes(Path.of("/path/to/XPJZ02.2026140binRTCM3"));
++        Path precPath = Path.of("/path/to/precise.sp3");
++        byte[] precBytes = Files.isRegularFile(precPath) ? Files.readAllBytes(precPath) : null;
+ 
+         MonitorTask task = MonitorTask.builder()
+                 .rtMode(3)
+@@ -102,6 +102,14 @@ public class DemoService {
+                 .brdcBytes(brdcBytes)
+                 .roverBytes(roverBytes)
+                 .baseBytes(baseBytes)
++                .precBytes(precBytes)
++                .ionoopt(0)
++                .tropopt(0)
++                .armode(0)
++                .sateph(0)
++                .nf(0)
++                .minfix(0)
++                .warmupMin(0)
+                 .outMode(1)
+                 .minFixedRate(0.75)
+                 .navSys("1,4,8,32")
+@@ -126,12 +134,13 @@ public class DemoService {
+ 可选项：
+ 
+ - `brdcBytes`：广播星历文件流，通常是 BRDM/RINEX 文件内容；可以为空。
++- `precBytes`：精密星历文件流（SP3 文本）；可以为空。`sateph=0` 时，有精密星历使用 PREC，否则使用 BRDC。
+ 
+ 重要字段：
+ 
+ | 字段 | 说明 |
+ | --- | --- |
+-| `rtMode` | 解算模式：`0` SPP，`2` 动态，`3` 静态 |
++| `rtMode` | 解算模式：`0` SPP，`1` DGPS，`2` 动态，`3` 静态 |
+ | `timeStart` | 开始时间，支持 `yyyy/MM/dd HH:mm:ss` 和 `yyyy-MM-dd HH:mm:ss` |
+ | `timeEnd` | 结束时间，支持同上格式 |
+ | `sample` | 采样间隔；通常传 `0` |
+@@ -142,6 +151,15 @@ public class DemoService {
+ | `bds` | 北斗频段开关；为 `0` 时会从 `navSys` 中移除 `32` |
+ | `baseX/baseY/baseZ` | 基准站 ECEF 坐标，可不传，默认 `0` |
+ | `outFile` | 底层算法输出文件路径，可不传 |
++| `ionoopt` | 电离层选项，`0` 使用原生默认值 IFLC（无电离层组合） |
++| `tropopt` | 对流层选项，`0` 使用原生默认值 ZTD（天顶对流层延迟）估计 |
++| `armode` | 模糊度固定模式，`0` 使用原生默认值 continuous（连续固定） |
++| `sateph` | 星历选项，`0` 自动选择精密星历或广播星历 |
++| `nf` | 频点数，`0` 使用原生默认值 `2` |
++| `minfix` | 首次固定需连续通过的历元数，`0` 使用原生默认值 `10` |
++| `warmupMin` | 预热时长，单位分钟，`0` 关闭；预热期仅驱动滤波，不计入报告 |
++
++以上新增解算选项在 Java 中默认均为 `0`，由 LMonitor 应用上述默认行为；非零选项值按原生算法的定义传入。
+ 
+ `MonitorServiceImpl` 会做以下转换：
+ 
+@@ -150,15 +168,16 @@ public class DemoService {
+ - 将 `navSys` 字符串拆分求和后传给原生库。
+ - `brdcBytes` 非空时自动补 `0` 结尾，避免底层按 C 字符串读取星历时越界。
+ - 将数据流写入 JNA native memory，并填入 `MonitorStreamInfo` 的指针和长度字段。
++- 将 `precBytes` 映射为 `precBuf/precLen`，将七个解算选项原样传入对应字段，`warmupMin` 对应原生 `warmup_min`。
+ 
+-## 直接调用 SO：MonitorLibrary
++## 直接调用原生库：MonitorLibrary
+ 
+ 如果不使用 Spring，也可以直接调用 JNA 封装。
+ 
+ ```java
+-import library.com.navfirst.lmonitor.lib.MonitorLibrary;
+-import library.com.navfirst.lmonitor.lib.MonitorStreamInfo;
+-import utils.com.navfirst.lmonitor.lib.TimeUtils;
++import com.navfirst.lmonitor.lib.library.MonitorLibrary;
++import com.navfirst.lmonitor.lib.library.MonitorStreamInfo;
++import com.navfirst.lmonitor.lib.utils.TimeUtils;
+ 
+ import java.nio.file.Files;
+ import java.nio.file.Path;
+@@ -171,6 +190,8 @@ public class DirectCallDemo {
+         byte[] brdc = Files.isRegularFile(brdcPath) ? Files.readAllBytes(brdcPath) : null;
+         byte[] rover = Files.readAllBytes(Path.of("/path/to/XPJZ01.2026140binRTCM3"));
+         byte[] base = Files.readAllBytes(Path.of("/path/to/XPJZ02.2026140binRTCM3"));
++        Path precPath = Path.of("/path/to/precise.sp3");
++        byte[] prec = Files.isRegularFile(precPath) ? Files.readAllBytes(precPath) : null;
+ 
+         MonitorStreamInfo info = MonitorStreamInfo.builder()
+                 .calMode(3)
+@@ -183,13 +204,21 @@ public class DirectCallDemo {
+                 .fixThresh(0.75)
+                 .rb(new double[]{0D, 0D, 0D})
+                 .outfile("")
++                .ionoopt(0)
++                .tropopt(0)
++                .armode(0)
++                .sateph(0)
++                .nf(0)
++                .minfix(0)
++                .warmupMin(0)
+                 .build();
+ 
+         info.setBrdc(appendZeroTerminator(brdc));
+         info.setRover(rover);
+         info.setBase(base);
++        info.setPrec(prec);
+ 
+-        String result = MonitorLibrary.INSTANCE.startGMonitor(info, "/path/to/license.lic");
++        String result = MonitorLibrary.INSTANCE.startLMonitor(info, "/path/to/license.lic");
+         String[] lines = result == null ? new String[]{"", ""} : result.split("\\R", 2);
+ 
+         String solBuf = lines.length > 0 ? lines[0] : "";
+@@ -214,16 +243,17 @@ public class DirectCallDemo {
+ 直接调用时要注意：
+ 
+ - `MonitorStreamInfo` 的字段顺序必须和原生库结构体一致，不要随意调整。
+-- `setBrdc/setRover/setBase` 会把 Java `byte[]` 写入 JNA native memory，并设置对应指针和长度。
++- `setBrdc/setRover/setBase/setPrec` 会复制 Java `byte[]` 到 JNA native memory，并设置对应指针和长度；传 `null` 或空数组时清空指针并将长度设为 `0`。
+ - `brdc` 可以为空；非空时建议补一个 `0` 结尾。通过 `MonitorService` 调用时会自动处理，直接调用时需要自己处理。
+-- `startGMonitor` 当前在 Java 中映射为 `String` 返回值，调用方不需要手动解析指针。
++- `prec` 可以为空；`setPrec` 按 SP3 原始字节设置指针和长度，无需补 `0` 结尾。
++- `startLMonitor` 当前在 Java 中映射为 `String` 返回值，调用方不需要手动解析指针。
+ 
+ ## 原生结构体映射
+ 
+-Java 的 `MonitorStreamInfo` 对应原生库的 `GMonitorStreamInfo`：
++Java 的 `MonitorStreamInfo` 对应原生库的 `LMonitorStreamInfo`：
+ 
+ ```c
+-typedef struct GMonitorStreamInfo {
++typedef struct LMonitorStreamInfo {
+     int32_t calMode;
+     double es[6];
+     double ee[6];
+@@ -240,7 +270,16 @@ typedef struct GMonitorStreamInfo {
+     uint64_t rover_len;
+     const uint8_t* base_buf;
+     uint64_t base_len;
+-} GMonitorStreamInfo;
++    const uint8_t* prec_buf;
++    uint64_t prec_len;
++    int32_t ionoopt;
++    int32_t tropopt;
++    int32_t armode;
++    int32_t sateph;
++    int32_t nf;
++    int32_t minfix;
++    double warmup_min;
++} LMonitorStreamInfo;
+ ```
+ 
+ 对应 Java 字段：
+@@ -260,39 +299,53 @@ typedef struct GMonitorStreamInfo {
+ | `brdcBuf/brdcLen` | `brdc_buf/brdc_len` | 广播星历数据 |
+ | `roverBuf/roverLen` | `rover_buf/rover_len` | 监测站数据 |
+ | `baseBuf/baseLen` | `base_buf/base_len` | 基准站数据 |
++| `precBuf/precLen` | `prec_buf/prec_len` | 精密星历数据（SP3） |
++| `ionoopt` | `ionoopt` | 电离层选项 |
++| `tropopt` | `tropopt` | 对流层选项 |
++| `armode` | `armode` | 模糊度固定模式 |
++| `sateph` | `sateph` | 星历选项 |
++| `nf` | `nf` | 频点数 |
++| `minfix` | `minfix` | 首次固定需连续通过的历元数 |
++| `warmupMin` | `warmup_min` | 预热时长（分钟） |
++
++类型映射：`int32_t` → Java `int`，`uint64_t` → Java `long`（数据长度使用非负值），`double` → Java `double`，数据指针 → JNA `Pointer`，`const char* outfile` → Java `String`。数组 `es/ee/rb` 必须分别保持长度 `6/6/3`。
++
++在本项目内置原生库支持的 64 位平台上，结构体大小为 **256 字节**：`precBuf` 偏移 `208`、`precLen` 偏移 `216`、`ionoopt` 偏移 `224`、`warmupMin` 偏移 `248`。Java 字段采用驼峰命名，通过固定字段顺序与 C 结构体对应。
+ 
+ ## 返回结果
+ 
+-`startGMonitor` 返回两行文本：
++`startLMonitor` 返回两行文本：
+ 
+ ```text
+ <solBuf>
+ <errMsg>
+ ```
+ 
+-`solBuf` 字段顺序：
++LMonitor 的 `solBuf` 包含 24 个以空白分隔的字段，顺序为：
+ 
+ ```text
+-endDate endTime lastGpsDate lastGpsTime dposMax dposAvg dposStd fixedRate roverEpochRate baseEpochRate E N U solStatus solutionType satNum roverSample baseSample roverObsNum baseObsNum fileStatus navStatus navNum offTime
++startDate startTime endDate endTime dposMax dposAvg dposStd fixedRate roverEpochRate baseEpochRate E N U solStatus solutionType satNum isMoved roverSample baseSample roverObsNum baseObsNum fileStatus navStatus offTime
+ ```
+ 
+-通过 `MonitorService` 调用时，`MonitorDataService` 会把 `solBuf` 解析成 `MonitorData`，再通过 `HandlerDataInterface` 回调出去。
++`isMoved` 位于卫星数量之后；`offTime` 为解算耗时，例如 `0.3s`。
++
++通过 `MonitorService` 调用时，`MonitorDataService` 会把 `solBuf` 解析成 `MonitorData`，再通过 `HandlerDataInterface` 回调出去。当前 Java 结果对象未暴露 `isMoved`；`gpsTime/lastObsTime` 均取返回的结束时间。
+ 
+ ## 测试
+ 
+ 测试类：
+ 
+ ```text
+-src/test/java/com/navfirst/dmonitor/lib/DmonitorJavaLibApplicationTests.java
++src/test/java/com/navfirst/lmonitor/lib/library/MonitorStreamInfoTests.java
++src/test/java/com/navfirst/lmonitor/lib/services/impl/MonitorServiceImplTests.java
++src/test/java/com/navfirst/lmonitor/lib/LmonitorJavaLibApplicationTests.java
+ ```
+ 
+ 当前 `testMonitor` 使用如下路径：
+ 
+ ```text
+-/Users/wfu/Downloads/nav/2026/BRDM1400.rnx
+-/Users/wfu/Downloads/raw/2026/140/00/XPJZ01.2026140binRTCM3
+-/Users/wfu/Downloads/raw/2026/140/00/XPJZ02.2026140binRTCM3
+-/Users/wfu/Downloads/license-mini.lic
++/Users/wfu/Downloads/GSSK01.2026210binRTCM3
++/Users/wfu/Downloads/license.lic
+ ```
+ 
+ 运行：
+@@ -301,11 +354,13 @@ src/test/java/com/navfirst/dmonitor/lib/DmonitorJavaLibApplicationTests.java
+ ./mvnw test
+ ```
+ 
+-如果 RTCM3 或 license 文件不存在，`testMonitor` 会跳过，不会误调用原生库。BRDC 星历文件不存在时会传空。
++结构体测试验证 256 字节布局、字段偏移及精密星历缓冲区，服务测试验证解算选项和数据流传参。
++
++`testMonitor` 是本地原生库集成测试，当前监测站和基准站使用同一份 RTCM3 样例，时间范围为 `2026/07/29 04:00:00` 至 `05:00:00`。如果 RTCM3 或 license 文件不存在，测试会跳过。该 RTCM3 文件不能作为 RINEX 广播星历传入；测试不传外部广播星历和精密星历。
+ 
+ ## 常见问题
+ 
+-### 找不到 libDMonitor
++### 找不到 libLMonitor
+ 
+ 确认当前系统对应的原生库在 classpath 中，或者指定：
+ 
+@@ -332,4 +387,4 @@ info.setRover(...);
+ info.setBase(...);
+ ```
+ 
+-`info.setBrdc(...)` 可选。只设置标量字段但不设置 `rover/base` 数据流时，原生库没有实际观测数据可解算。`brdc` 数据流可为空。
++`info.setBrdc(...)` 和 `info.setPrec(...)` 可选。只设置标量字段但不设置 `rover/base` 数据流时，原生库没有实际观测数据可解算。
+diff --git a/src/main/java/com/navfirst/lmonitor/lib/configurations/ApplicationRunnerStart.java b/src/main/java/com/navfirst/lmonitor/lib/configurations/ApplicationRunnerStart.java
+index 37caec0..8ebeecd 100644
+--- a/src/main/java/com/navfirst/lmonitor/lib/configurations/ApplicationRunnerStart.java
++++ b/src/main/java/com/navfirst/lmonitor/lib/configurations/ApplicationRunnerStart.java
+@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
+ /**
+  * 创建：馥溪凝
+  * 日期：2022/08/23 12:14
+- * 描述：com.navfirst.dmonitor.lib.configurations
++ * 描述：com.navfirst.lmonitor.lib.configurations
+  */
+ @Slf4j
+ @Component
+diff --git a/src/main/java/com/navfirst/lmonitor/lib/configurations/LmonitorAutoConfiguration.java b/src/main/java/com/navfirst/lmonitor/lib/configurations/LmonitorAutoConfiguration.java
+index 726ce21..4ed72b7 100644
+--- a/src/main/java/com/navfirst/lmonitor/lib/configurations/LmonitorAutoConfiguration.java
++++ b/src/main/java/com/navfirst/lmonitor/lib/configurations/LmonitorAutoConfiguration.java
+@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
+ /**
+  * 创建：馥溪凝
+  * 日期：2022/08/23 12:14
+- * 描述：com.navfirst.dmonitor.lib.configurations
++ * 描述：com.navfirst.lmonitor.lib.configurations
+  */
+ @Configuration(proxyBeanMethods = false)
+ @AutoConfiguration
+diff --git a/src/main/java/com/navfirst/lmonitor/lib/domains/MonitorData.java b/src/main/java/com/navfirst/lmonitor/lib/domains/MonitorData.java
+index 7b30938..90da2b6 100644
+--- a/src/main/java/com/navfirst/lmonitor/lib/domains/MonitorData.java
++++ b/src/main/java/com/navfirst/lmonitor/lib/domains/MonitorData.java
+@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
+ /**
+  * 创建：馥溪凝
+  * 日期：2022/04/10 13:52
+- * 描述：com.navfirst.dmonitor.lib.domains
++ * 描述：com.navfirst.lmonitor.lib.domains
+  */
+ @Data
+ @Builder
+@@ -107,7 +107,7 @@ public class MonitorData {
+     private String offTime;
+ 
+     /**
+-     * 解算模式： 0-纯实时 1-实时任务 2-重算任务
++     * 解算模式：0-SPP，1-DGPS，2-动态，3-静态
+      */
+     private int rtMode;
+ 
+diff --git a/src/main/java/com/navfirst/lmonitor/lib/domains/MonitorTask.java b/src/main/java/com/navfirst/lmonitor/lib/domains/MonitorTask.java
+index d8458d6..2d0fc4c 100644
+--- a/src/main/java/com/navfirst/lmonitor/lib/domains/MonitorTask.java
++++ b/src/main/java/com/navfirst/lmonitor/lib/domains/MonitorTask.java
+@@ -11,7 +11,7 @@ import java.io.Serializable;
+ /**
+  * 创建：馥溪凝
+  * 日期：2022/04/09 15:23
+- * 描述：com.navfirst.dmonitor.lib.domains
++ * 描述：com.navfirst.lmonitor.lib.domains
+  */
+ @Data
+ @Builder
+@@ -23,7 +23,7 @@ public class MonitorTask implements Serializable {
+     private static final long serialVersionUID = 4168483660656762466L;
+ 
+     /**
+-     * 解算状态，0代表SPP，2代表动态，3代表静态
++     * 解算模式，0代表SPP，1代表DGPS，2代表动态，3代表静态
+      */
+     @Builder.Default
+     private int rtMode = 3;
+@@ -84,6 +84,32 @@ public class MonitorTask implements Serializable {
+      */
+     private byte[] roverBytes;
+ 
++    /**
++     * 精密星历文件流（SP3 文本），可为空
++     */
++    private byte[] precBytes;
++
++    /** 电离层选项，0 使用原生默认值 IFLC。 */
++    private int ionoopt;
++
++    /** 对流层选项，0 使用原生默认值 ZTD 估计。 */
++    private int tropopt;
++
++    /** 模糊度固定模式，0 使用原生默认值 continuous。 */
++    private int armode;
++
++    /** 星历选项，0 自动选择：有精密星历用 PREC，否则用 BRDC。 */
++    private int sateph;
++
++    /** 频点数，0 使用原生默认值 2。 */
++    private int nf;
++
++    /** 首次固定需连续通过的历元数，0 使用原生默认值 10。 */
++    private int minfix;
++
++    /** 预热时长（分钟），0 关闭；预热期仅驱动滤波，不计入报告。 */
++    private double warmupMin;
++
+     /**
+      * 输出结果：0-历元解 1-单一解
+      */
+diff --git a/src/main/java/com/navfirst/lmonitor/lib/enums/NavErrorEnum.java b/src/main/java/com/navfirst/lmonitor/lib/enums/NavErrorEnum.java
+index eedc29e..766e88f 100644
+--- a/src/main/java/com/navfirst/lmonitor/lib/enums/NavErrorEnum.java
++++ b/src/main/java/com/navfirst/lmonitor/lib/enums/NavErrorEnum.java
+@@ -8,7 +8,7 @@ import java.util.Arrays;
+ /**
+  * 创建：馥溪凝
+  * 日期：2022/04/11 21:24
+- * 描述：com.navfirst.dmonitor.lib.enums
++ * 描述：com.navfirst.lmonitor.lib.enums
+  */
+ @Getter
+ @AllArgsConstructor
+diff --git a/src/main/java/com/navfirst/lmonitor/lib/enums/ObsErrorEnum.java b/src/main/java/com/navfirst/lmonitor/lib/enums/ObsErrorEnum.java
+index b036adc..f3ec509 100644
+--- a/src/main/java/com/navfirst/lmonitor/lib/enums/ObsErrorEnum.java
++++ b/src/main/java/com/navfirst/lmonitor/lib/enums/ObsErrorEnum.java
+@@ -8,7 +8,7 @@ import java.util.Arrays;
+ /**
+  * 创建：馥溪凝
+  * 日期：2022/04/11 21:24
+- * 描述：com.navfirst.dmonitor.lib.enums
++ * 描述：com.navfirst.lmonitor.lib.enums
+  */
+ @Getter
+ @AllArgsConstructor
+diff --git a/src/main/java/com/navfirst/lmonitor/lib/exceptions/RtkconvException.java b/src/main/java/com/navfirst/lmonitor/lib/exceptions/RtkconvException.java
+index 9980546..9a8a70a 100644
+--- a/src/main/java/com/navfirst/lmonitor/lib/exceptions/RtkconvException.java
++++ b/src/main/java/com/navfirst/lmonitor/lib/exceptions/RtkconvException.java
+@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
+ /**
+  * 创建：馥溪凝
+  * 日期：2022/04/11 21:31
+- * 描述：com.navfirst.dmonitor.lib.exceptions
++ * 描述：com.navfirst.lmonitor.lib.exceptions
+  */
+ @Getter
+ @NoArgsConstructor
+diff --git a/src/main/java/com/navfirst/lmonitor/lib/library/MonitorLibrary.java b/src/main/java/com/navfirst/lmonitor/lib/library/MonitorLibrary.java
+index 653e346..b685199 100644
+--- a/src/main/java/com/navfirst/lmonitor/lib/library/MonitorLibrary.java
++++ b/src/main/java/com/navfirst/lmonitor/lib/library/MonitorLibrary.java
+@@ -6,7 +6,7 @@ import com.sun.jna.Native;
+ /**
+  * 创建：馥溪凝
+  * 日期：2022/04/09 15:23
+- * 描述：com.navfirst.dmonitor.lib.library
++ * 描述：com.navfirst.lmonitor.lib.library
+  */
+ public interface MonitorLibrary extends Library {
+ 
+diff --git a/src/main/java/com/navfirst/lmonitor/lib/library/MonitorStreamInfo.java b/src/main/java/com/navfirst/lmonitor/lib/library/MonitorStreamInfo.java
+index 1222261..d81659b 100644
+--- a/src/main/java/com/navfirst/lmonitor/lib/library/MonitorStreamInfo.java
++++ b/src/main/java/com/navfirst/lmonitor/lib/library/MonitorStreamInfo.java
+@@ -10,7 +10,7 @@ import java.util.List;
+ /**
+  * 创建：馥溪凝
+  * 日期：2022/04/09 15:19
+- * 描述：com.navfirst.dmonitor.lib.library
++ * 描述：LMonitorStreamInfo 的 JNA 映射，字段类型和顺序必须与原生结构体一致。
+  */
+ @Data
+ @EqualsAndHashCode(callSuper = true)
+@@ -19,13 +19,15 @@ import java.util.List;
+ @AllArgsConstructor
+ @Structure.FieldOrder({
+         "calMode", "es", "ee", "ti", "vrsMode", "navsys", "solstatic", "fixThresh", "rb", "outfile",
+-        "brdcBuf", "brdcLen", "roverBuf", "roverLen", "baseBuf", "baseLen"
++        "brdcBuf", "brdcLen", "roverBuf", "roverLen", "baseBuf", "baseLen", "precBuf", "precLen",
++        "ionoopt", "tropopt", "armode", "sateph", "nf", "minfix", "warmupMin"
+ })
+ public class MonitorStreamInfo extends MyStructure {
+ 
+     private static final List<String> FIELD_ORDER = List.of(
+             "calMode", "es", "ee", "ti", "vrsMode", "navsys", "solstatic", "fixThresh", "rb", "outfile",
+-            "brdcBuf", "brdcLen", "roverBuf", "roverLen", "baseBuf", "baseLen"
++            "brdcBuf", "brdcLen", "roverBuf", "roverLen", "baseBuf", "baseLen", "precBuf", "precLen",
++            "ionoopt", "tropopt", "armode", "sateph", "nf", "minfix", "warmupMin"
+     );
+ 
+     @Builder.Default
+@@ -67,12 +69,39 @@ public class MonitorStreamInfo extends MyStructure {
+ 
+     public long baseLen;
+ 
++    public Pointer precBuf;
++
++    public long precLen;
++
++    /** 电离层选项，0 使用原生默认值 IFLC。 */
++    public int ionoopt;
++
++    /** 对流层选项，0 使用原生默认值 ZTD 估计。 */
++    public int tropopt;
++
++    /** 模糊度固定模式，0 使用原生默认值 continuous。 */
++    public int armode;
++
++    /** 星历选项，0 自动选择：有精密星历用 PREC，否则用 BRDC。 */
++    public int sateph;
++
++    /** 频点数，0 使用原生默认值 2。 */
++    public int nf;
++
++    /** 首次固定需连续通过的历元数，0 使用原生默认值 10。 */
++    public int minfix;
++
++    /** 对应 warmup_min，预热时长（分钟），0 关闭。 */
++    public double warmupMin;
++
+     private transient Memory brdcMemory;
+ 
+     private transient Memory roverMemory;
+ 
+     private transient Memory baseMemory;
+ 
++    private transient Memory precMemory;
++
+     @Override
+     protected List<String> getFieldOrder() {
+         return FIELD_ORDER;
+@@ -96,6 +125,12 @@ public class MonitorStreamInfo extends MyStructure {
+         this.baseLen = byteLength(base);
+     }
+ 
++    public void setPrec(byte[] prec) {
++        this.precMemory = toMemory(prec);
++        this.precBuf = precMemory;
++        this.precLen = byteLength(prec);
++    }
++
+     private static Memory toMemory(byte[] bytes) {
+         if (bytes == null || bytes.length == 0) {
+             return null;
+diff --git a/src/main/java/com/navfirst/lmonitor/lib/library/MyStructure.java b/src/main/java/com/navfirst/lmonitor/lib/library/MyStructure.java
+index 6d9a857..9483ef4 100644
+--- a/src/main/java/com/navfirst/lmonitor/lib/library/MyStructure.java
++++ b/src/main/java/com/navfirst/lmonitor/lib/library/MyStructure.java
+@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
+ /**
+  * 创建：馥溪凝
+  * 日期：2021/10/11 12:31
+- * 描述：com.navfirst.dmonitor.lib.library
++ * 描述：com.navfirst.lmonitor.lib.library
+  */
+ public class MyStructure extends Structure {
+ 
+diff --git a/src/main/java/com/navfirst/lmonitor/lib/services/HandlerDataInterface.java b/src/main/java/com/navfirst/lmonitor/lib/services/HandlerDataInterface.java
+index f69a6f4..ceb39fb 100644
+--- a/src/main/java/com/navfirst/lmonitor/lib/services/HandlerDataInterface.java
++++ b/src/main/java/com/navfirst/lmonitor/lib/services/HandlerDataInterface.java
+@@ -5,7 +5,7 @@ import com.navfirst.lmonitor.lib.domains.MonitorData;
+ /**
+  * 创建：馥溪凝
+  * 日期：2022/04/19 09:23
+- * 描述：com.navfirst.dmonitor.lib.services
++ * 描述：com.navfirst.lmonitor.lib.services
+  */
+ public interface HandlerDataInterface {
+ 
+diff --git a/src/main/java/com/navfirst/lmonitor/lib/services/MonitorDataService.java b/src/main/java/com/navfirst/lmonitor/lib/services/MonitorDataService.java
+index 40cc94c..1ee723b 100644
+--- a/src/main/java/com/navfirst/lmonitor/lib/services/MonitorDataService.java
++++ b/src/main/java/com/navfirst/lmonitor/lib/services/MonitorDataService.java
+@@ -6,7 +6,7 @@ import com.navfirst.lmonitor.lib.domains.MonitorTask;
+ /**
+  * 创建：馥溪凝
+  * 日期：2022/04/10 13:40
+- * 描述：com.navfirst.dmonitor.lib.services
++ * 描述：com.navfirst.lmonitor.lib.services
+  */
+ public interface MonitorDataService {
+ 
+diff --git a/src/main/java/com/navfirst/lmonitor/lib/services/MonitorService.java b/src/main/java/com/navfirst/lmonitor/lib/services/MonitorService.java
+index e7b14c5..69d5a9a 100644
+--- a/src/main/java/com/navfirst/lmonitor/lib/services/MonitorService.java
++++ b/src/main/java/com/navfirst/lmonitor/lib/services/MonitorService.java
+@@ -5,7 +5,7 @@ import com.navfirst.lmonitor.lib.domains.MonitorTask;
+ /**
+  * 创建：馥溪凝
+  * 日期：2022/04/09 15:26
+- * 描述：com.navfirst.dmonitor.lib.services
++ * 描述：com.navfirst.lmonitor.lib.services
+  */
+ public interface MonitorService {
+ 
+diff --git a/src/main/java/com/navfirst/lmonitor/lib/services/impl/MonitorDataServiceImpl.java b/src/main/java/com/navfirst/lmonitor/lib/services/impl/MonitorDataServiceImpl.java
+index db38026..fa6feb7 100644
+--- a/src/main/java/com/navfirst/lmonitor/lib/services/impl/MonitorDataServiceImpl.java
++++ b/src/main/java/com/navfirst/lmonitor/lib/services/impl/MonitorDataServiceImpl.java
+@@ -17,7 +17,7 @@ import java.util.Arrays;
+ /**
+  * 创建：馥溪凝
+  * 日期：2022/04/10 13:40
+- * 描述：com.navfirst.dmonitor.lib.services.impl
++ * 描述：com.navfirst.lmonitor.lib.services.impl
+  */
+ @Slf4j
+ @Service
+diff --git a/src/main/java/com/navfirst/lmonitor/lib/services/impl/MonitorServiceImpl.java b/src/main/java/com/navfirst/lmonitor/lib/services/impl/MonitorServiceImpl.java
+index a0dd33a..018c4f3 100644
+--- a/src/main/java/com/navfirst/lmonitor/lib/services/impl/MonitorServiceImpl.java
++++ b/src/main/java/com/navfirst/lmonitor/lib/services/impl/MonitorServiceImpl.java
+@@ -19,7 +19,7 @@ import java.util.Arrays;
+ /**
+  * 创建：馥溪凝
+  * 日期：2022/04/09 15:26
+- * 描述：com.navfirst.dmonitor.lib.services.impl
++ * 描述：com.navfirst.lmonitor.lib.services.impl
+  */
+ @Slf4j
+ @Service
+@@ -102,10 +102,18 @@ public class MonitorServiceImpl implements MonitorService {
+                         defaultDouble(monitorTask.getBaseZ())
+                 })
+                 .outfile(StringUtils.defaultString(monitorTask.getOutFile()))
++                .ionoopt(monitorTask.getIonoopt())
++                .tropopt(monitorTask.getTropopt())
++                .armode(monitorTask.getArmode())
++                .sateph(monitorTask.getSateph())
++                .nf(monitorTask.getNf())
++                .minfix(monitorTask.getMinfix())
++                .warmupMin(monitorTask.getWarmupMin())
+                 .build();
+         monitorInfo.setBrdc(appendZeroTerminator(monitorTask.getBrdcBytes()));
+         monitorInfo.setRover(monitorTask.getRoverBytes());
+         monitorInfo.setBase(monitorTask.getBaseBytes());
++        monitorInfo.setPrec(monitorTask.getPrecBytes());
+         return monitorInfo;
+     }
+ 
+diff --git a/src/main/java/com/navfirst/lmonitor/lib/utils/ByteUtils.java b/src/main/java/com/navfirst/lmonitor/lib/utils/ByteUtils.java
+index bd75d75..f0daefb 100644
+--- a/src/main/java/com/navfirst/lmonitor/lib/utils/ByteUtils.java
++++ b/src/main/java/com/navfirst/lmonitor/lib/utils/ByteUtils.java
+@@ -5,7 +5,7 @@ import java.nio.charset.StandardCharsets;
+ /**
+  * 创建：馥溪凝
+  * 日期：2022/04/24 14:51
+- * 描述：com.navfirst.dmonitor.lib.utils
++ * 描述：com.navfirst.lmonitor.lib.utils
+  */
+ public class ByteUtils {
+ 
+diff --git a/src/main/java/com/navfirst/lmonitor/lib/utils/TimeUtils.java b/src/main/java/com/navfirst/lmonitor/lib/utils/TimeUtils.java
+index 10def0a..69d6f3b 100644
+--- a/src/main/java/com/navfirst/lmonitor/lib/utils/TimeUtils.java
++++ b/src/main/java/com/navfirst/lmonitor/lib/utils/TimeUtils.java
+@@ -9,7 +9,7 @@ import java.time.format.DateTimeParseException;
+ /**
+  * 创建：馥溪凝
+  * 日期：2026/7/6 17:24
+- * 描述：com.navfirst.dmonitor.lib.utils
++ * 描述：com.navfirst.lmonitor.lib.utils
+  */
+ public class TimeUtils {
+ 
+diff --git a/src/main/resources/META-INF/MANIFEST.MF b/src/main/resources/META-INF/MANIFEST.MF
+index 198d489..f8ea994 100644
+--- a/src/main/resources/META-INF/MANIFEST.MF
++++ b/src/main/resources/META-INF/MANIFEST.MF
+@@ -1,10 +1,4 @@
+ Manifest-Version: 1.0
+-Implementation-Title: dmonitor
+-Implementation-Version: 1.1.1
+-Built-Gradle: 7.1
+-Bundle-DocURL: https://wfu.com/
+-Build-OS: Windows 10
+-Built-By: 24319
+-Build-Jdk: 21
+-Build-Timestamp: 2022-06-01 00:25:33
+-Automatic-Module-Name: com.navfirst.dmonitor.lib
++Implementation-Title: lmonitor-java-lib
++Implementation-Version: 1.0.0
++Automatic-Module-Name: com.navfirst.lmonitor.lib
+diff --git a/src/test/java/com/navfirst/lmonitor/lib/LmonitorJavaLibApplicationTests.java b/src/test/java/com/navfirst/lmonitor/lib/LmonitorJavaLibApplicationTests.java
+index 2f6446e..6cdf7b7 100644
+--- a/src/test/java/com/navfirst/lmonitor/lib/LmonitorJavaLibApplicationTests.java
++++ b/src/test/java/com/navfirst/lmonitor/lib/LmonitorJavaLibApplicationTests.java
+@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
+ @RequiredArgsConstructor(onConstructor = @__(@Autowired))
+ class LmonitorJavaLibApplicationTests {
+ 
+-    private static final Path BRDC_PATH = Path.of("/Users/wfu/Downloads/GSSK01.2026210binRTCM3");
+     private static final Path ROVER_PATH = Path.of("/Users/wfu/Downloads/GSSK01.2026210binRTCM3");
+     private static final Path BASE_PATH = Path.of("/Users/wfu/Downloads/GSSK01.2026210binRTCM3");
+     private static final String LICENSE_PATH = "/Users/wfu/Downloads/license.lic";
+@@ -45,7 +44,6 @@ class LmonitorJavaLibApplicationTests {
+         assumeTrue(Files.isRegularFile(Path.of(LICENSE_PATH)), "缺少 license：" + LICENSE_PATH);
+ 
+         this.monitorService.setHandlerData(monitorData -> log.info("解算结果：{}", monitorData));
+-        byte[] brdcBytes = Files.isRegularFile(BRDC_PATH) ? Files.readAllBytes(BRDC_PATH) : null;
+         MonitorTask monitorTask = MonitorTask.builder()
+                 .rtMode(3)
+                 .timeStart("2026/07/29 04:00:00")
+@@ -56,7 +54,6 @@ class LmonitorJavaLibApplicationTests {
+                 .processInterval(600)
+                 .roverName("GSSK01")
+                 .baseName("GSSK01")
+-                .brdcBytes(brdcBytes)
+                 .roverBytes(Files.readAllBytes(ROVER_PATH))
+                 .baseBytes(Files.readAllBytes(BASE_PATH))
+                 .outMode(1)

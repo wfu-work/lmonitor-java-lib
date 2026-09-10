@@ -8,7 +8,7 @@ import java.util.Arrays;
 /**
  * 创建：馥溪凝
  * 日期：2022/04/11 21:24
- * 描述：com.navfirst.dmonitor.lib.enums
+ * 描述：com.navfirst.lmonitor.lib.enums
  */
 @Getter
 @AllArgsConstructor

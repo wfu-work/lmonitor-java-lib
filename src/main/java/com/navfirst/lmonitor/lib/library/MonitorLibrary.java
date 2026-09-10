@@ -6,7 +6,7 @@ import com.sun.jna.Native;
 /**
  * 创建：馥溪凝
  * 日期：2022/04/09 15:23
- * 描述：com.navfirst.dmonitor.lib.library
+ * 描述：com.navfirst.lmonitor.lib.library
  */
 public interface MonitorLibrary extends Library {
 

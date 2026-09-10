@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 /**
  * 创建：馥溪凝
  * 日期：2022/04/10 13:52
- * 描述：com.navfirst.dmonitor.lib.domains
+ * 描述：com.navfirst.lmonitor.lib.domains
  */
 @Data
 @Builder
@@ -107,7 +107,7 @@ public class MonitorData {
     private String offTime;
 
     /**
-     * 解算模式： 0-纯实时 1-实时任务 2-重算任务
+     * 解算模式：0-SPP，1-DGPS，2-动态，3-静态
      */
     private int rtMode;
 

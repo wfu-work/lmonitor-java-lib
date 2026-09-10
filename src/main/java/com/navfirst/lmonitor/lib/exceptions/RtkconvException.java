@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 /**
  * 创建：馥溪凝
  * 日期：2022/04/11 21:31
- * 描述：com.navfirst.dmonitor.lib.exceptions
+ * 描述：com.navfirst.lmonitor.lib.exceptions
  */
 @Getter
 @NoArgsConstructor

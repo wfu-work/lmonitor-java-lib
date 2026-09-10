@@ -1,0 +1,9 @@
+License info：[uuid]:[UUID REDACTED], [endTime]:1796025259000
+2026/09/10 13:22:51 [monitor solbuf]: 2026/09/06 13:00:00 2026/09/06 14:00:00 0.0156 0.0009 0.0014 0.6345 0.9917 0.9917 60.6842 21.5841 6.4060 Fixed 3 27 0 15 15 238 238  0  0 0.3s - fix rate 0.63 < threshold 0.75
+13:22:51.556 [pool-1-thread-1] ERROR com.navfirst.lmonitor.lib.services.impl.MonitorDataServiceImpl -- 解算结果：2026/09/06 13:00:00 2026/09/06 14:00:00 0.0156 0.0009 0.0014 0.6345 0.9917 0.9917 60.6842 21.5841 6.4060 Fixed 3 27 0 15 15 238 238  0  0 0.3s
+License info：[uuid]:[UUID REDACTED], [endTime]:1796025259000
+2026/09/10 13:22:51 [monitor solbuf]: 2026/09/06 12:00:00 2026/09/06 13:00:00 0.2389 0.0041 0.0229 0.4519 0.9958 0.9958 -4455.9970 35469.3348 -72.8397 Fixed 3 20 1 15 15 239 239  0  0 0.2s - fix rate 0.45 < threshold 0.75
+13:22:51.779 [pool-1-thread-1] ERROR com.navfirst.lmonitor.lib.services.impl.MonitorDataServiceImpl -- 解算结果：2026/09/06 12:00:00 2026/09/06 13:00:00 0.2389 0.0041 0.0229 0.4519 0.9958 0.9958 -4455.9970 35469.3348 -72.8397 Fixed 3 20 1 15 15 239 239  0  0 0.2s
+License info：[uuid]:[UUID REDACTED], [endTime]:1796025259000
+2026/09/10 13:22:52 [monitor solbuf]: 2026/09/06 13:00:00 2026/09/06 14:00:00 0.1688 0.0033 0.0147 0.5462 0.9917 0.9917 -4456.0256 35469.3834 -72.5837 Fixed 3 20 0 15 15 238 238  0  0 0.2s - fix rate 0.55 < threshold 0.75
+13:22:52.054 [pool-1-thread-1] ERROR com.navfirst.lmonitor.lib.services.impl.MonitorDataServiceImpl -- 解算结果：2026/09/06 13:00:00 2026/09/06 14:00:00 0.1688 0.0033 0.0147 0.5462 0.9917 0.9917 -4456.0256 35469.3834 -72.5837 Fixed 3 20 0 15 15 238 238  0  0 0.2s

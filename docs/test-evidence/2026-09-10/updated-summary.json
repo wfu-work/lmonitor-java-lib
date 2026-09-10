@@ -1,0 +1,30 @@
+{
+  "source_snapshot": "2026-09-10T13:20:55.459327+08:00",
+  "jna_size": 256,
+  "baseline_strict_pass": 0,
+  "baseline_count": 3,
+  "long_baseline_km": 35.75042818271555,
+  "repeatability_median_ms": 212.404333,
+  "concurrency_comparison_fields": [
+    "E",
+    "N",
+    "U",
+    "fixedRate",
+    "solStatus",
+    "fileStatus",
+    "navStatus",
+    "errMsg",
+    "gpsTime",
+    "roverObsNum",
+    "baseObsNum",
+    "roverEpochRate",
+    "baseEpochRate"
+  ],
+  "concurrency_consistent": true,
+  "payload_bytes": 4999895,
+  "payload_measured_samples": 2,
+  "payload_median_ms": 3417.805167,
+  "payload_p95_ms": 3449.680084,
+  "payload_MB_s": 1.4628964366592874,
+  "payload_strict_pass": 3
+}

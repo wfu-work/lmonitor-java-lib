@@ -1,0 +1,82 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------< com.navfirst:lmonitor-java-lib >-------------------
+[INFO] Building lmonitor-java-lib 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.3.2:clean (default-clean) @ lmonitor-java-lib ---
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ lmonitor-java-lib ---
+[INFO] Copying 0 resource from src/main/resources to target/classes
+[INFO] Copying 6 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ lmonitor-java-lib ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 18 source files with javac [debug release 20] to target/classes
+[INFO] 由于在类路径中发现了一个或多个处理程序，因此启用了
+  批注处理。未来发行版的 javac 可能会禁用批注处理，
+  除非至少按名称指定了一个处理程序 (-processor)，
+  或指定了搜索路径 (--processor-path, --processor-module-path)，
+  或显式启用了批注处理 (-proc:only, -proc:full)。
+  可使用 -Xlint:-options 隐藏此消息。
+  可使用 -proc:none 禁用批注处理。
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ lmonitor-java-lib ---
+[INFO] skip non existing resourceDirectory /private/tmp/lmonitor-doc-work/verified-source/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ lmonitor-java-lib ---
+[INFO] Changes detected - recompiling the module! :dependency
+[INFO] Compiling 1 source file with javac [debug release 20] to target/test-classes
+[INFO] 由于在类路径中发现了一个或多个处理程序，因此启用了
+  批注处理。未来发行版的 javac 可能会禁用批注处理，
+  除非至少按名称指定了一个处理程序 (-processor)，
+  或指定了搜索路径 (--processor-path, --processor-module-path)，
+  或显式启用了批注处理 (-proc:only, -proc:full)。
+  可使用 -Xlint:-options 隐藏此消息。
+  可使用 -proc:none 禁用批注处理。
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ lmonitor-java-lib ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.navfirst.lmonitor.lib.LmonitorJavaLibApplicationTests
+13:20:59.601 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.navfirst.lmonitor.lib.LmonitorJavaLibApplicationTests]: LmonitorJavaLibApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+13:20:59.647 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.navfirst.lmonitor.lib.LmonitorJavaLibApplication for test class com.navfirst.lmonitor.lib.LmonitorJavaLibApplicationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.4)
+
+2026-09-10T13:20:59.809+08:00  INFO 64764 --- [           main] c.n.l.l.LmonitorJavaLibApplicationTests  : Starting LmonitorJavaLibApplicationTests using Java 21.0.9 with PID 64764 (started by wfu in /private/tmp/lmonitor-doc-work/verified-source)
+2026-09-10T13:20:59.810+08:00  INFO 64764 --- [           main] c.n.l.l.LmonitorJavaLibApplicationTests  : No active profile set, falling back to 1 default profile: "default"
+2026-09-10T13:21:00.960+08:00  INFO 64764 --- [           main] c.n.l.l.LmonitorJavaLibApplicationTests  : Started LmonitorJavaLibApplicationTests in 1.258 seconds (process running for 1.671)
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+WARNING: A Java agent has been loaded dynamically (/Users/wfu/.m2/repository/net/bytebuddy/byte-buddy-agent/1.14.12/byte-buddy-agent-1.14.12.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+2026-09-10T13:21:01.397+08:00  INFO 64764 --- [           main] c.n.l.l.LmonitorJavaLibApplicationTests  : 许可证唯一标识：[UUID REDACTED]
+2026-09-10T13:21:01.406+08:00  INFO 64764 --- [           main] c.n.l.l.LmonitorJavaLibApplicationTests  : 算法版本：1.0.0
+2026/09/10 13:21:01 [monitor solbuf]: 2026/07/29 04:00:00 2026/07/29 05:00:00 0.0000 0.0000 0.0000 0.0000 0.9958 0.9958 0.0000 0.0000 -0.0000 Float 3 32 0 15 15 239 239  0  0 0.3s - fix rate 0.00 < threshold 0.75
+2026-09-10T13:21:01.717+08:00 ERROR 64764 --- [           main] c.n.l.l.s.impl.MonitorDataServiceImpl    : 解算结果：2026/07/29 04:00:00 2026/07/29 05:00:00 0.0000 0.0000 0.0000 0.0000 0.9958 0.9958 0.0000 0.0000 -0.0000 Float 3 32 0 15 15 239 239  0  0 0.3s
+2026-09-10T13:21:01.718+08:00  INFO 64764 --- [           main] c.n.l.l.LmonitorJavaLibApplicationTests  : 解算结果：MonitorData(roverName=GSSK01, baseName=GSSK01, gpsTime=2026/07/29 05:00:00, lastObsTime=2026/07/29 05:00:00, E=0.0, N=0.0, U=-0.0, solStatus=Float, satNum=32, roverSample=15, baseSample=15, fileStatus=0, fileStatusDesc=正常, navStatus=0, roverObsNum=239, baseObsNum=239, navStatusDesc=正常, offTime=0.3s, rtMode=3, vrs=0, taskType=0, filterPeriod=7200, processInterval=600, fixedRate=0.0, dposmax=0.0, dposavg=0.0, dposstd=0.0, outMode=1, errMsg=fix rate 0.00 < threshold 0.75, roverEpochRate=0.9958, baseEpochRate=0.9958, solutionType=3, navSys=1,4,8,32, extra=null)
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.214 s -- in com.navfirst.lmonitor.lib.LmonitorJavaLibApplicationTests
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[WARNING] Corrupted channel by directly writing to native stream in forked JVM 1. See FAQ web page and the dump file /private/tmp/lmonitor-doc-work/verified-source/target/surefire-reports/2026-09-10T13-20-59_190-jvmRun1.dumpstream
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  4.670 s
+[INFO] Finished at: 2026-09-10T13:21:01+08:00
+[INFO] ------------------------------------------------------------------------

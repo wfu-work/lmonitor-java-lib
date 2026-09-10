@@ -1,0 +1,38 @@
+{
+  "git": "f46b42ff32d3c21166685cf6db1cd3c0ebdbc230",
+  "date": "2026-09-10",
+  "native_source": "/Users/wfu/Documents/works/navfirst/code/nav-app/lmonitor-go-lib/main.go",
+  "native_source_sha256": "560ed397e2fb848479095e02a824e339e3d438b9aae170036b70b7299dbeb794",
+  "binaries": [
+    {
+      "path": "src/main/resources/darwin-aarch64/libLMonitor.dylib",
+      "bytes": 3112322,
+      "sha256": "3b45e95855142d5bb7f746472974ea807c4fb765ac8ae6748ed7c5bd339b4caa"
+    },
+    {
+      "path": "src/main/resources/linux-aarch64/libLMonitor.so",
+      "bytes": 4518056,
+      "sha256": "acbd3a20669e759451b4c595d2048c703212ba1c91b1ab019d6d041d8cc86cf7"
+    },
+    {
+      "path": "src/main/resources/linux-x86-64/libLMonitor.so",
+      "bytes": 4907096,
+      "sha256": "c306fefabe674d0a3942765652bc5a9e040bc47e28c3c8a1b33858749693f7fb"
+    },
+    {
+      "path": "target/lmonitor-java-lib-1.0.0.jar",
+      "bytes": 21249544,
+      "sha256": "059c6a6662de9a7a25675516908b507fb8dae27821ede85155e41209889a3168"
+    }
+  ],
+  "regression_fixture": {
+    "path": "/Users/wfu/Downloads/GSSK01.2026210binRTCM3",
+    "bytes": 250039,
+    "sha256": "38fe5861927590718a2c1ef9581a75a7857fd961b4fd47e67204243e09393171",
+    "roles": [
+      "brdc",
+      "rover",
+      "base"
+    ]
+  }
+}

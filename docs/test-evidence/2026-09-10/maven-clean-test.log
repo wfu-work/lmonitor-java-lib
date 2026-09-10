@@ -1,0 +1,230 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------< com.navfirst:lmonitor-java-lib >-------------------
+[INFO] Building lmonitor-java-lib 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.3.2:clean (default-clean) @ lmonitor-java-lib ---
+[INFO] Deleting /Users/wfu/Documents/works/navfirst/code/nav-whu/lmonitor-java-lib/target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ lmonitor-java-lib ---
+[INFO] Copying 0 resource from src/main/resources to target/classes
+[INFO] Copying 6 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ lmonitor-java-lib ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 18 source files with javac [debug release 20] to target/classes
+[INFO] 由于在类路径中发现了一个或多个处理程序，因此启用了
+  批注处理。未来发行版的 javac 可能会禁用批注处理，
+  除非至少按名称指定了一个处理程序 (-processor)，
+  或指定了搜索路径 (--processor-path, --processor-module-path)，
+  或显式启用了批注处理 (-proc:only, -proc:full)。
+  可使用 -Xlint:-options 隐藏此消息。
+  可使用 -proc:none 禁用批注处理。
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ lmonitor-java-lib ---
+[INFO] skip non existing resourceDirectory /Users/wfu/Documents/works/navfirst/code/nav-whu/lmonitor-java-lib/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ lmonitor-java-lib ---
+[INFO] Changes detected - recompiling the module! :dependency
+[INFO] Compiling 1 source file with javac [debug release 20] to target/test-classes
+[INFO] 由于在类路径中发现了一个或多个处理程序，因此启用了
+  批注处理。未来发行版的 javac 可能会禁用批注处理，
+  除非至少按名称指定了一个处理程序 (-processor)，
+  或指定了搜索路径 (--processor-path, --processor-module-path)，
+  或显式启用了批注处理 (-proc:only, -proc:full)。
+  可使用 -Xlint:-options 隐藏此消息。
+  可使用 -proc:none 禁用批注处理。
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ lmonitor-java-lib ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.navfirst.lmonitor.lib.LmonitorJavaLibApplicationTests
+13:03:08.864 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.navfirst.lmonitor.lib.LmonitorJavaLibApplicationTests]: LmonitorJavaLibApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+13:03:08.904 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.navfirst.lmonitor.lib.LmonitorJavaLibApplication for test class com.navfirst.lmonitor.lib.LmonitorJavaLibApplicationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.4)
+
+2026-09-10T13:03:09.041+08:00  INFO 55180 --- [           main] c.n.l.l.LmonitorJavaLibApplicationTests  : Starting LmonitorJavaLibApplicationTests using Java 21.0.9 with PID 55180 (started by wfu in /Users/wfu/Documents/works/navfirst/code/nav-whu/lmonitor-java-lib)
+2026-09-10T13:03:09.042+08:00  INFO 55180 --- [           main] c.n.l.l.LmonitorJavaLibApplicationTests  : No active profile set, falling back to 1 default profile: "default"
+2026-09-10T13:03:10.033+08:00  INFO 55180 --- [           main] c.n.l.l.LmonitorJavaLibApplicationTests  : Started LmonitorJavaLibApplicationTests in 1.084 seconds (process running for 1.467)
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+WARNING: A Java agent has been loaded dynamically (/Users/wfu/.m2/repository/net/bytebuddy/byte-buddy-agent/1.14.12/byte-buddy-agent-1.14.12.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+2026-09-10T13:03:10.513+08:00  INFO 55180 --- [           main] c.n.l.l.LmonitorJavaLibApplicationTests  : 许可证唯一标识：[UUID REDACTED]
+2026-09-10T13:03:10.523+08:00  INFO 55180 --- [           main] c.n.l.l.LmonitorJavaLibApplicationTests  : 算法版本：1.0.0
+runtime: out of memory: cannot allocate 7155094065598431232-byte block (3833856 in use)
+fatal error: out of memory
+
+goroutine 17 gp=0x6ad086448780 m=1 mp=0x6ad0864a0008 [running, locked to thread]:
+runtime.throw({0x131957719?, 0x129c02d08?})
+	/Users/wfu/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.4.darwin-arm64/src/runtime/panic.go:1229 +0x38 fp=0x6ad0864ae820 sp=0x6ad0864ae7f0 pc=0x1318774d8
+runtime.(*mcache).allocLarge(0x6ad000000000?, 0x634c0024b2570001, 0x1)
+	/Users/wfu/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.4.darwin-arm64/src/runtime/mcache.go:259 +0x1dc fp=0x6ad0864ae870 sp=0x6ad0864ae820 pc=0x13181dd6c
+runtime.mallocgcLarge(0x0?, 0x0, 0x0)
+	/Users/wfu/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.4.darwin-arm64/src/runtime/malloc.go:1703 +0x88 fp=0x6ad0864ae8c0 sp=0x6ad0864ae870 pc=0x13181ae98
+runtime.mallocgc(0x634c0024b2570001, 0x0, 0x0)
+	/Users/wfu/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.4.darwin-arm64/src/runtime/malloc.go:1156 +0xbc fp=0x6ad0864ae8f0 sp=0x6ad0864ae8c0 pc=0x131875e5c
+lmonitor-go-lib/libs.copyCBytes(0x6ad0864ae978?, 0x634c0024b2570001)
+	/Users/wfu/Documents/works/navfirst/code/nav-app/lmonitor-go-lib/libs/monitor.go:419 +0x54 fp=0x6ad0864ae960 sp=0x6ad0864ae8f0 pc=0x1318e8064
+lmonitor-go-lib/libs.(*LMonitorStreamInfo).StreamMonitorInput(_)
+	/Users/wfu/Documents/works/navfirst/code/nav-app/lmonitor-go-lib/libs/monitor.go:143 +0x258 fp=0x6ad0864aea60 sp=0x6ad0864ae960 pc=0x1318e6888
+lmonitor-go-lib/libs.StartLMonitor(0x6ad08655c000, {0x6ad086600000, 0x20})
+	/Users/wfu/Documents/works/navfirst/code/nav-app/lmonitor-go-lib/libs/monitor.go:113 +0x54 fp=0x6ad0864aedb0 sp=0x6ad0864aea60 pc=0x1318e6474
+main.startLMonitor(0x131a72901?, 0x1084d14a0)
+	/Users/wfu/Documents/works/navfirst/code/nav-app/lmonitor-go-lib/main.go:84 +0x5c fp=0x6ad0864aee20 sp=0x6ad0864aedb0 pc=0x1318e8a9c
+_cgoexp_0b3cc2b7e72e_startLMonitor(0x16d196db8)
+	/Users/wfu/Documents/works/navfirst/code/nav-app/lmonitor-go-lib/main.go:82 +0x24 fp=0x6ad0864aee40 sp=0x6ad0864aee20 pc=0x1318e8f64
+runtime.cgocallbackg1(0x1318e8f40, 0x16d196db8, 0x0)
+	/Users/wfu/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.4.darwin-arm64/src/runtime/cgocall.go:466 +0x2a0 fp=0x6ad0864aef10 sp=0x6ad0864aee40 pc=0x131810ac0
+runtime.cgocallbackg(0x1318e8f40, 0x16d196db8, 0x0)
+	/Users/wfu/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.4.darwin-arm64/src/runtime/cgocall.go:362 +0x104 fp=0x6ad0864aef80 sp=0x6ad0864aef10 pc=0x131810754
+runtime.cgocallbackg(0x1318e8f40, 0x16d196db8, 0x0)
+	<autogenerated>:1 +0x1c fp=0x6ad0864aefb0 sp=0x6ad0864aef80 pc=0x13187f8cc
+runtime.cgocallback(0x0, 0x0, 0x0)
+	/Users/wfu/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.4.darwin-arm64/src/runtime/asm_arm64.s:1359 +0xb0 fp=0x6ad0864aefe0 sp=0x6ad0864aefb0 pc=0x13187e150
+runtime.goexit({})
+	/Users/wfu/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.4.darwin-arm64/src/runtime/asm_arm64.s:1447 +0x4 fp=0x6ad0864aefe0 sp=0x6ad0864aefe0 pc=0x13187e234
+
+goroutine 2 gp=0x6ad086448d20 m=nil [force gc (idle)]:
+runtime.gopark(0x0?, 0x0?, 0x0?, 0x0?, 0x0?)
+	/Users/wfu/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.4.darwin-arm64/src/runtime/proc.go:462 +0xbc fp=0x6ad08649cf90 sp=0x6ad08649cf70 pc=0x1318775ac
+runtime.goparkunlock(...)
+	/Users/wfu/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.4.darwin-arm64/src/runtime/proc.go:468
+runtime.forcegchelper()
+	/Users/wfu/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.4.darwin-arm64/src/runtime/proc.go:375 +0xb4 fp=0x6ad08649cfd0 sp=0x6ad08649cf90 pc=0x1318461c4
+runtime.goexit({})
+	/Users/wfu/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.4.darwin-arm64/src/runtime/asm_arm64.s:1447 +0x4 fp=0x6ad08649cfd0 sp=0x6ad08649cfd0 pc=0x13187e234
+created by runtime.init.7 in goroutine 1
+	/Users/wfu/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.4.darwin-arm64/src/runtime/proc.go:363 +0x24
+
+goroutine 3 gp=0x6ad0864492c0 m=nil [GC sweep wait]:
+runtime.gopark(0x0?, 0x0?, 0x0?, 0x0?, 0x0?)
+	/Users/wfu/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.4.darwin-arm64/src/runtime/proc.go:462 +0xbc fp=0x6ad08649d770 sp=0x6ad08649d750 pc=0x1318775ac
+runtime.goparkunlock(...)
+	/Users/wfu/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.4.darwin-arm64/src/runtime/proc.go:468
+runtime.bgsweep(0x6ad0864c6000)
+	/Users/wfu/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.4.darwin-arm64/src/runtime/mgcsweep.go:279 +0x9c fp=0x6ad08649d7b0 sp=0x6ad08649d770 pc=0x131831f0c
+runtime.gcenable.gowrap1()
+	/Users/wfu/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.4.darwin-arm64/src/runtime/mgc.go:214 +0x20 fp=0x6ad08649d7d0 sp=0x6ad08649d7b0 pc=0x1318236a0
+runtime.goexit({})
+	/Users/wfu/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.4.darwin-arm64/src/runtime/asm_arm64.s:1447 +0x4 fp=0x6ad08649d7d0 sp=0x6ad08649d7d0 pc=0x13187e234
+created by runtime.gcenable in goroutine 1
+	/Users/wfu/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.4.darwin-arm64/src/runtime/mgc.go:214 +0x6c
+
+goroutine 4 gp=0x6ad0864494a0 m=nil [GC scavenge wait]:
+runtime.gopark(0x6ad0864c6000?, 0x1319629b8?, 0x1?, 0x0?, 0x6ad0864494a0?)
+	/Users/wfu/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.4.darwin-arm64/src/runtime/proc.go:462 +0xbc fp=0x6ad08649df60 sp=0x6ad08649df40 pc=0x1318775ac
+runtime.goparkunlock(...)
+	/Users/wfu/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.4.darwin-arm64/src/runtime/proc.go:468
+runtime.(*scavengerState).park(0x131abbcc0)
+	/Users/wfu/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.4.darwin-arm64/src/runtime/mgcscavenge.go:425 +0x5c fp=0x6ad08649df90 sp=0x6ad08649df60 pc=0x13182fafc
+runtime.bgscavenge(0x6ad0864c6000)
+	/Users/wfu/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.4.darwin-arm64/src/runtime/mgcscavenge.go:653 +0x44 fp=0x6ad08649dfb0 sp=0x6ad08649df90 pc=0x131830034
+runtime.gcenable.gowrap2()
+	/Users/wfu/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.4.darwin-arm64/src/runtime/mgc.go:215 +0x20 fp=0x6ad08649dfd0 sp=0x6ad08649dfb0 pc=0x131823660
+runtime.goexit({})
+	/Users/wfu/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.4.darwin-arm64/src/runtime/asm_arm64.s:1447 +0x4 fp=0x6ad08649dfd0 sp=0x6ad08649dfd0 pc=0x13187e234
+created by runtime.gcenable in goroutine 1
+	/Users/wfu/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.4.darwin-arm64/src/runtime/mgc.go:215 +0xac
+
+goroutine 18 gp=0x6ad0865043c0 m=nil [GOMAXPROCS updater (idle)]:
+runtime.gopark(0x0?, 0x0?, 0x0?, 0x0?, 0x0?)
+	/Users/wfu/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.4.darwin-arm64/src/runtime/proc.go:462 +0xbc fp=0x6ad086498770 sp=0x6ad086498750 pc=0x1318775ac
+runtime.goparkunlock(...)
+	/Users/wfu/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.4.darwin-arm64/src/runtime/proc.go:468
+runtime.updateMaxProcsGoroutine()
+	/Users/wfu/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.4.darwin-arm64/src/runtime/proc.go:7095 +0xf4 fp=0x6ad0864987d0 sp=0x6ad086498770 pc=0x1318548b4
+runtime.goexit({})
+	/Users/wfu/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.4.darwin-arm64/src/runtime/asm_arm64.s:1447 +0x4 fp=0x6ad0864987d0 sp=0x6ad0864987d0 pc=0x13187e234
+created by runtime.defaultGOMAXPROCSUpdateEnable in goroutine 1
+	/Users/wfu/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.4.darwin-arm64/src/runtime/proc.go:7083 +0x48
+
+goroutine 19 gp=0x6ad086504960 m=nil [finalizer wait]:
+runtime.gopark(0x0?, 0x0?, 0xb8?, 0xc5?, 0x131878224?)
+	/Users/wfu/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.4.darwin-arm64/src/runtime/proc.go:462 +0xbc fp=0x6ad08649c580 sp=0x6ad08649c560 pc=0x1318775ac
+runtime.runFinalizers()
+	/Users/wfu/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.4.darwin-arm64/src/runtime/mfinal.go:210 +0x100 fp=0x6ad08649c7d0 sp=0x6ad08649c580 pc=0x131822770
+runtime.goexit({})
+	/Users/wfu/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.4.darwin-arm64/src/runtime/asm_arm64.s:1447 +0x4 fp=0x6ad08649c7d0 sp=0x6ad08649c7d0 pc=0x13187e234
+created by runtime.createfing in goroutine 1
+	/Users/wfu/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.26.4.darwin-arm64/src/runtime/mfinal.go:172 +0x78
+/bin/sh: line 1: 55180 Abort trap: 6           '/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home/bin/java' '-jar' '/Users/wfu/Documents/works/navfirst/code/nav-whu/lmonitor-java-lib/target/surefire/surefirebooter-20260910130308510_3.jar' '/Users/wfu/Documents/works/navfirst/code/nav-whu/lmonitor-java-lib/target/surefire' '2026-09-10T13-03-08_465-jvmRun1' 'surefire-20260910130308510_1tmp' 'surefire_0-20260910130308510_2tmp'
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 0, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  4.101 s
+[INFO] Finished at: 2026-09-10T13:03:10+08:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.1.2:test (default-test) on project lmonitor-java-lib: 
+[ERROR] 
+[ERROR] Please refer to /Users/wfu/Documents/works/navfirst/code/nav-whu/lmonitor-java-lib/target/surefire-reports for the individual test results.
+[ERROR] Please refer to dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] The forked VM terminated without properly saying goodbye. VM crash or System.exit called?
+[ERROR] Command was /bin/sh -c cd '/Users/wfu/Documents/works/navfirst/code/nav-whu/lmonitor-java-lib' && '/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home/bin/java' '-jar' '/Users/wfu/Documents/works/navfirst/code/nav-whu/lmonitor-java-lib/target/surefire/surefirebooter-20260910130308510_3.jar' '/Users/wfu/Documents/works/navfirst/code/nav-whu/lmonitor-java-lib/target/surefire' '2026-09-10T13-03-08_465-jvmRun1' 'surefire-20260910130308510_1tmp' 'surefire_0-20260910130308510_2tmp'
+[ERROR] Error occurred in starting fork, check output in log
+[ERROR] Process Exit Code: 134
+[ERROR] Crashed tests:
+[ERROR] com.navfirst.lmonitor.lib.LmonitorJavaLibApplicationTests
+[ERROR] org.apache.maven.surefire.booter.SurefireBooterForkException: The forked VM terminated without properly saying goodbye. VM crash or System.exit called?
+[ERROR] Command was /bin/sh -c cd '/Users/wfu/Documents/works/navfirst/code/nav-whu/lmonitor-java-lib' && '/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home/bin/java' '-jar' '/Users/wfu/Documents/works/navfirst/code/nav-whu/lmonitor-java-lib/target/surefire/surefirebooter-20260910130308510_3.jar' '/Users/wfu/Documents/works/navfirst/code/nav-whu/lmonitor-java-lib/target/surefire' '2026-09-10T13-03-08_465-jvmRun1' 'surefire-20260910130308510_1tmp' 'surefire_0-20260910130308510_2tmp'
+[ERROR] Error occurred in starting fork, check output in log
+[ERROR] Process Exit Code: 134
+[ERROR] Crashed tests:
+[ERROR] com.navfirst.lmonitor.lib.LmonitorJavaLibApplicationTests
+[ERROR] 	at org.apache.maven.plugin.surefire.booterclient.ForkStarter.fork(ForkStarter.java:643)
+[ERROR] 	at org.apache.maven.plugin.surefire.booterclient.ForkStarter.run(ForkStarter.java:285)
+[ERROR] 	at org.apache.maven.plugin.surefire.booterclient.ForkStarter.run(ForkStarter.java:250)
+[ERROR] 	at org.apache.maven.plugin.surefire.AbstractSurefireMojo.executeProvider(AbstractSurefireMojo.java:1203)
+[ERROR] 	at org.apache.maven.plugin.surefire.AbstractSurefireMojo.executeAfterPreconditionsChecked(AbstractSurefireMojo.java:1055)
+[ERROR] 	at org.apache.maven.plugin.surefire.AbstractSurefireMojo.execute(AbstractSurefireMojo.java:871)
+[ERROR] 	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:126)
+[ERROR] 	at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute2(MojoExecutor.java:328)
+[ERROR] 	at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute(MojoExecutor.java:316)
+[ERROR] 	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:212)
+[ERROR] 	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:174)
+[ERROR] 	at org.apache.maven.lifecycle.internal.MojoExecutor.access$000(MojoExecutor.java:75)
+[ERROR] 	at org.apache.maven.lifecycle.internal.MojoExecutor$1.run(MojoExecutor.java:162)
+[ERROR] 	at org.apache.maven.plugin.DefaultMojosExecutionStrategy.execute(DefaultMojosExecutionStrategy.java:39)
+[ERROR] 	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:159)
+[ERROR] 	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:105)
+[ERROR] 	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:73)
+[ERROR] 	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:53)
+[ERROR] 	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:118)
+[ERROR] 	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:261)
+[ERROR] 	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:173)
+[ERROR] 	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:101)
+[ERROR] 	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:919)
+[ERROR] 	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:285)
+[ERROR] 	at org.apache.maven.cli.MavenCli.main(MavenCli.java:207)
+[ERROR] 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+[ERROR] 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+[ERROR] 	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:255)
+[ERROR] 	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:201)
+[ERROR] 	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:362)
+[ERROR] 	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:314)
+[ERROR] 
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException

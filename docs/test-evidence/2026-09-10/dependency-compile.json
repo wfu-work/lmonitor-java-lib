@@ -1,0 +1,14 @@
+[
+  {
+    "artifact": "lmonitor-java-lib-1.0.0.jar",
+    "exit_code": 1,
+    "compiler_output": "/tmp/lmonitor-doc-work/DependencyCompileProbe.java:1: 错误: 程序包com.navfirst.lmonitor.lib.domains不存在\nimport com.navfirst.lmonitor.lib.domains.MonitorTask;\n                                        ^\n/tmp/lmonitor-doc-work/DependencyCompileProbe.java:2: 错误: 找不到符号\nclass DependencyCompileProbe { MonitorTask task; }\n                               ^\n  符号:   类 MonitorTask\n  位置: 类 DependencyCompileProbe\n2 个错误\n",
+    "class_at_root": false
+  },
+  {
+    "artifact": "lmonitor-java-lib-1.0.0.jar.original",
+    "exit_code": 0,
+    "compiler_output": "",
+    "class_at_root": true
+  }
+]
