@@ -88,7 +88,7 @@ public class MonitorStreamInfo extends MyStructure {
     /** 频点数，0 使用原生默认值 2。 */
     public int nf;
 
-    /** 首次固定需连续通过的历元数，0 使用原生默认值 10。 */
+    /** 首次固定需连续通过的历元数，0 使用原生默认值 5。 */
     public int minfix;
 
     /** 对应 warmup_min，预热时长（分钟），0 关闭。 */

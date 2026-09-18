@@ -104,7 +104,7 @@ public class MonitorTask implements Serializable {
     /** 频点数，0 使用原生默认值 2。 */
     private int nf;
 
-    /** 首次固定需连续通过的历元数，0 使用原生默认值 10。 */
+    /** 首次固定需连续通过的历元数，0 使用原生默认值 5。 */
     private int minfix;
 
     /** 预热时长（分钟），0 关闭；预热期仅驱动滤波，不计入报告。 */

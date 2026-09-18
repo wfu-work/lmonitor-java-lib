@@ -12,8 +12,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-
 /**
  * 创建：馥溪凝
  * 日期：2022/04/10 13:40
@@ -30,8 +28,8 @@ public class MonitorDataServiceImpl implements MonitorDataService {
     public void handlerData(MonitorTask monitorTask, String data, String errMsg) {
         if (StringUtils.isBlank(data)) return;
         log.error("解算结果：{}", data);
-        String[] splits = Arrays.stream(data.split(" ")).filter(StringUtils::isNotBlank).toArray(String[]::new);
-        if (splits.length >= 23) {
+        String[] splits = splitFields(data);
+        if (isSupportedResultLength(splits.length)) {
             MonitorData monitorData = getMonitorDataBySplits(monitorTask, splits);
             if (StringUtils.isNotBlank(errMsg)) {
                 monitorData.setErrMsg(errMsg);
@@ -45,8 +43,8 @@ public class MonitorDataServiceImpl implements MonitorDataService {
     @Override
     public MonitorData handlerDataSync(MonitorTask monitorTask, String data, String errMsg) {
         if (StringUtils.isBlank(data)) return null;
-        String[] splits = Arrays.stream(data.split(" ")).filter(StringUtils::isNotBlank).toArray(String[]::new);
-        if (splits.length >= 23) {
+        String[] splits = splitFields(data);
+        if (isSupportedResultLength(splits.length)) {
             MonitorData monitorData = getMonitorDataBySplits(monitorTask, splits);
             if (StringUtils.isNotBlank(errMsg)) {
                 monitorData.setErrMsg(errMsg);
@@ -58,11 +56,40 @@ public class MonitorDataServiceImpl implements MonitorDataService {
 
     private MonitorData getMonitorDataBySplits(MonitorTask monitorTask, String[] splits) {
         String gpsTime, lastObsTime, solStatus, offTime;
-        double E, N, U;
+        double E, N, U, X = 0.0, Y = 0.0, Z = 0.0, B = 0.0, L = 0.0, H = 0.0;
         double fixedRate = 0.0, dposmax = 0.0, dposavg = 0.0, dposstd = 0.0, baseEpochRate = 0.0, roverEpochRate = 0.0;
-        int roverSample, baseSample, satNum, roverObsNum, baseObsNum, fileStatus, navStatus, solutionType;
+        int roverSample, baseSample, satNum, roverObsNum, baseObsNum, fileStatus, navStatus, solutionType, isMoved = 0;
         MonitorData monitorData;
-        if (splits.length == 23) {
+        if (splits.length == 30) {
+            gpsTime = splits[2] + " " + splits[3];
+            lastObsTime = gpsTime;
+            dposmax = Double.parseDouble(splits[4]);
+            dposavg = Double.parseDouble(splits[5]);
+            dposstd = Double.parseDouble(splits[6]);
+            fixedRate = Double.parseDouble(splits[7]);
+            roverEpochRate = Double.parseDouble(splits[8]);
+            baseEpochRate = Double.parseDouble(splits[9]);
+            E = Double.parseDouble(splits[10]);
+            N = Double.parseDouble(splits[11]);
+            U = Double.parseDouble(splits[12]);
+            X = Double.parseDouble(splits[13]);
+            Y = Double.parseDouble(splits[14]);
+            Z = Double.parseDouble(splits[15]);
+            B = Double.parseDouble(splits[16]);
+            L = Double.parseDouble(splits[17]);
+            H = Double.parseDouble(splits[18]);
+            solStatus = splits[19];
+            solutionType = Integer.parseInt(splits[20]);
+            satNum = Integer.parseInt(splits[21]);
+            isMoved = Integer.parseInt(splits[22]);
+            roverSample = Integer.parseInt(splits[23]);
+            baseSample = Integer.parseInt(splits[24]);
+            roverObsNum = Integer.parseInt(splits[25]);
+            baseObsNum = Integer.parseInt(splits[26]);
+            fileStatus = Integer.parseInt(splits[27]);
+            navStatus = Integer.parseInt(splits[28]);
+            offTime = splits[29];
+        } else if (splits.length == 23) {
             gpsTime = splits[2] + " " + splits[3];
             lastObsTime = gpsTime;
             dposmax = Double.parseDouble(splits[4]);
@@ -99,6 +126,7 @@ public class MonitorDataServiceImpl implements MonitorDataService {
             solStatus = splits[13];
             solutionType = Integer.parseInt(splits[14]);
             satNum = Integer.parseInt(splits[15]);
+            isMoved = Integer.parseInt(splits[16]);
             roverSample = Integer.parseInt(splits[17]);
             baseSample = Integer.parseInt(splits[18]);
             roverObsNum = Integer.parseInt(splits[19]);
@@ -107,32 +135,19 @@ public class MonitorDataServiceImpl implements MonitorDataService {
             navStatus = Integer.parseInt(splits[22]);
             offTime = splits[23];
         } else {
-            gpsTime = splits[2] + " " + splits[3];
-            lastObsTime = gpsTime;
-            E = Double.parseDouble(splits[4]);
-            N = Double.parseDouble(splits[5]);
-            U = Double.parseDouble(splits[6]);
-            solStatus = splits[7];
-            if (StringUtils.equals(splits[8], "0.0000")) {
-                satNum = 0;
-            } else {
-                satNum = Integer.parseInt(splits[8]);
-            }
-            try {
-                roverObsNum = Integer.parseInt(splits[9]);
-            } catch (Exception e) {
-                roverObsNum = 0;
-            }
-            baseObsNum = Integer.parseInt(splits[10]);
-            fileStatus = Integer.parseInt(splits[11]);
-            navStatus = Integer.parseInt(splits[12]);
-            offTime = splits[13];
-            roverSample = 0;
-            baseSample = 0;
-            solutionType = 0;
+            throw new IllegalArgumentException("不支持的解算结果字段数: " + splits.length);
         }
-        monitorData = MonitorData.builder().baseName(monitorTask.getBaseName().trim()).roverName(monitorTask.getRoverName().trim()).gpsTime(gpsTime).lastObsTime(lastObsTime).E(E).N(N).U(U).fixedRate(fixedRate).dposmax(dposmax).dposavg(dposavg).dposstd(dposstd).solStatus(solStatus).satNum(satNum).roverObsNum(roverObsNum).baseObsNum(baseObsNum).fileStatus(fileStatus).fileStatusDesc(ObsErrorEnum.getValue(fileStatus)).navStatus(navStatus).navStatusDesc(NavErrorEnum.getValue(navStatus)).offTime(offTime).rtMode(monitorTask.getRtMode()).filterPeriod(monitorTask.getFilterPeriod()).processInterval(monitorTask.getProcessInterval()).vrs(monitorTask.getVrs()).taskType(monitorTask.getTaskType()).outMode(monitorTask.getOutMode()).roverSample(roverSample).baseSample(baseSample).baseEpochRate(baseEpochRate).roverEpochRate(roverEpochRate).solutionType(solutionType).navSys(StringUtils.isNotBlank(monitorTask.getNavSys()) ? monitorTask.getNavSys() : "1,4,8,32").extra(monitorTask.getExtra()).build();
+        monitorData = MonitorData.builder().baseName(monitorTask.getBaseName().trim()).roverName(monitorTask.getRoverName().trim()).gpsTime(gpsTime).lastObsTime(lastObsTime).E(E).N(N).U(U).X(X).Y(Y).Z(Z).B(B).L(L).H(H).fixedRate(fixedRate).dposmax(dposmax).dposavg(dposavg).dposstd(dposstd).solStatus(solStatus).satNum(satNum).isMoved(isMoved).roverObsNum(roverObsNum).baseObsNum(baseObsNum).fileStatus(fileStatus).fileStatusDesc(ObsErrorEnum.getValue(fileStatus)).navStatus(navStatus).navStatusDesc(NavErrorEnum.getValue(navStatus)).offTime(offTime).rtMode(monitorTask.getRtMode()).filterPeriod(monitorTask.getFilterPeriod()).processInterval(monitorTask.getProcessInterval()).vrs(monitorTask.getVrs()).taskType(monitorTask.getTaskType()).outMode(monitorTask.getOutMode()).roverSample(roverSample).baseSample(baseSample).baseEpochRate(baseEpochRate).roverEpochRate(roverEpochRate).solutionType(solutionType).navSys(StringUtils.isNotBlank(monitorTask.getNavSys()) ? monitorTask.getNavSys() : "1,4,8,32").extra(monitorTask.getExtra()).build();
         return monitorData;
+    }
+
+    private String[] splitFields(String data) {
+        String value = StringUtils.trimToEmpty(data);
+        return value.isEmpty() ? new String[0] : value.split("\\s+");
+    }
+
+    private boolean isSupportedResultLength(int length) {
+        return length == 23 || length == 24 || length == 30;
     }
 
     @Override

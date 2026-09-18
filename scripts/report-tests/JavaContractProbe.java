@@ -36,6 +36,7 @@ public class JavaContractProbe {
             .extra("report-id").filterPeriod(7200).processInterval(600).build();
         String row23 = "2026/09/06 14:00:00 2026/09/06 13:59:45 0.1 0.2 0.3 0.9 0.98 0.99 10.1 20.2 30.3 Fixed 1 18 15 15 238 237 0 0 0.500";
         String row24 = row23.replace("Fixed 1 18 15", "Fixed 1 18 999 15");
+        String row30 = "2026/07/03 02:00:00 2026/07/03 03:00:00 0.1488 0.0468 0.0205 0.9915 0.9833 0.9833 36.9577 -5.6954 7.4100 -1647153.5438 4602287.6750 4085429.0790 40.077629137 109.692231002 1311.3510 Fixed 1 29 1 15 15 236 236 0 0 1.1s";
         check("time_slash", () -> require(Arrays.equals(TimeUtils.parseEpoch("2026/09/06 13:00:00"),new double[]{2026,9,6,13,0,0})));
         check("time_dash", () -> require(Arrays.equals(TimeUtils.parseEpoch("2026-09-06 13:00:00"),new double[]{2026,9,6,13,0,0})));
         check("time_blank", () -> require(Arrays.equals(TimeUtils.parseEpoch(" "),new double[6])));
@@ -47,6 +48,7 @@ public class JavaContractProbe {
         check("memory_empty", () -> {var s=new MonitorStreamInfo();s.setBase(new byte[0]);s.setBrdc(null);require(s.baseBuf==null && s.baseLen==0 && s.brdcBuf==null && s.brdcLen==0);});
         check("parser_23", () -> {var d=data.handlerDataSync(task,row23,"");require(d.getE()==10.1 && d.getN()==20.2 && d.getU()==30.3 && d.getRoverObsNum()==238 && d.getBaseObsNum()==237 && d.getOffTime().equals("0.500"));});
         check("parser_24", () -> {var d=data.handlerDataSync(task,row24,"warning");require(d.getRoverSample()==15 && d.getRoverObsNum()==238 && d.getErrMsg().equals("warning"));});
+        check("parser_30", () -> {var d=data.handlerDataSync(task,row30,"");require(d.getX()==-1647153.5438 && d.getY()==4602287.6750 && d.getZ()==4085429.0790 && d.getB()==40.077629137 && d.getL()==109.692231002 && d.getH()==1311.3510 && d.getIsMoved()==1 && d.getBaseObsNum()==236);});
         check("parser_blank_short", () -> require(data.handlerDataSync(task,"","")==null && data.handlerDataSync(task,"1 2 3","")==null));
         check("parser_bad_number", () -> expect(NumberFormatException.class, () -> data.handlerDataSync(task,row23.replace("10.1","bad"),"")));
         check("parser_null_station", () -> expect(NullPointerException.class, () -> data.handlerDataSync(MonitorTask.builder().build(),row23,"")));

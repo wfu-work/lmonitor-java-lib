@@ -1,6 +1,6 @@
 # LMonitor 测试报告复现说明
 
-报告测量对象为 Git `f46b42f` 加 2026-09-10 工作区修订，源文件哈希见 `docs/test-evidence/2026-09-10/updated-source-manifest.json`。`updated-*` 是最新结果，其他证据为修订前的历史记录。原生库版本为 1.0.0。
+历史报告测量对象为 Git `f46b42f` 加 2026-09-10 工作区修订，源文件哈希见 `docs/test-evidence/2026-09-10/updated-source-manifest.json`。该目录的 `updated-*` 是当日修订后的结果，其他证据为当日修订前记录。原生库版本为 1.0.0。当前脚本已同步到 2026-09-18 的 30 列协议，运行结果写入 `target/report-work`，不覆盖历史测量。
 
 ## 环境与构建
 
@@ -14,7 +14,7 @@ mkdir -p target/report-work
   -Dmdep.outputFile=target/report-work/classpath.txt
 ```
 
-最新完整回归 3 项通过；现有测试类没有业务断言，同站样例返回 Float、固定率 0，因此不能据 JUnit 绿色状态判定业务质量。默认制品是 Spring Boot 可执行 JAR，作为 SDK 分发应关闭 repackage 或单独发布普通 JAR。开发安装命令：
+2026-09-18 完整回归 6 项通过，其中新增 3 项结果解析断言测试。原有集成测试的同站样例返回 Float、固定率 0，因此不能据 JUnit 绿色状态判定解算质量。默认制品是 Spring Boot 可执行 JAR，作为 SDK 分发应关闭 repackage 或单独发布普通 JAR。开发安装命令：
 
 ```sh
 ./mvnw -DskipTests -Dspring-boot.repackage.skip=true clean install
@@ -30,7 +30,7 @@ java -cp "target/report-work:$REPORT_CP" JavaContractProbe \
   target/report-work/java-contract.json
 ```
 
-18 项断言检查时间、任务校验、内存复制、人工 23/24 项文本、回调和状态映射，另记录 JNA 尺寸及偏移。任一断言失败退出码为 1。只读取原生版本，不调用解算。最新尺寸 256 B，25 个字段，与 C 参考布局一致。人工文本不代表所有原生输出格式均兼容。
+19 项断言检查时间、任务校验、内存复制、人工 23/24/30 项文本、回调和状态映射，另记录 JNA 尺寸及偏移。任一断言失败退出码为 1。只读取原生版本，不调用解算。最新尺寸 256 B，25 个字段，与 C 参考布局一致。人工文本不代表所有原生输出格式均兼容。
 
 ## GNSS 解算采集
 

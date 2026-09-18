@@ -52,6 +52,36 @@ public class MonitorData {
     private Double U;
 
     /**
+     * 监测站 ECEF X 坐标，单位米；未提供基准站坐标时为 0。
+     */
+    private Double X;
+
+    /**
+     * 监测站 ECEF Y 坐标，单位米；未提供基准站坐标时为 0。
+     */
+    private Double Y;
+
+    /**
+     * 监测站 ECEF Z 坐标，单位米；未提供基准站坐标时为 0。
+     */
+    private Double Z;
+
+    /**
+     * WGS84 大地纬度 B，单位度；未提供基准站坐标时为 0。
+     */
+    private Double B;
+
+    /**
+     * WGS84 大地经度 L，单位度；未提供基准站坐标时为 0。
+     */
+    private Double L;
+
+    /**
+     * WGS84 椭球高 H，单位米；未提供基准站坐标时为 0。
+     */
+    private Double H;
+
+    /**
      * 解算状态
      */
     private String solStatus;
@@ -60,6 +90,11 @@ public class MonitorData {
      * 卫星数量
      */
     private Integer satNum;
+
+    /**
+     * 长基线结果中的测站移动标志。
+     */
+    private Integer isMoved;
 
     /**
      * 监测站采样频率

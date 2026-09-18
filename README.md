@@ -149,14 +149,14 @@ public class DemoService {
 | `minFixedRate` | 最小固定率，例如 `0.75` |
 | `navSys` | 卫星系统聚合项，例如 `1,4,8,32` |
 | `bds` | 北斗频段开关；为 `0` 时会从 `navSys` 中移除 `32` |
-| `baseX/baseY/baseZ` | 基准站 ECEF 坐标，可不传，默认 `0` |
+| `baseX/baseY/baseZ` | 基准站 ECEF 坐标，单位米；需要输出监测站绝对坐标时传入三个分量，可不传，默认 `0` |
 | `outFile` | 底层算法输出文件路径，可不传 |
 | `ionoopt` | 电离层选项，`0` 使用原生默认值 IFLC（无电离层组合） |
 | `tropopt` | 对流层选项，`0` 使用原生默认值 ZTD（天顶对流层延迟）估计 |
 | `armode` | 模糊度固定模式，`0` 使用原生默认值 continuous（连续固定） |
 | `sateph` | 星历选项，`0` 自动选择精密星历或广播星历 |
 | `nf` | 频点数，`0` 使用原生默认值 `2` |
-| `minfix` | 首次固定需连续通过的历元数，`0` 使用原生默认值 `10` |
+| `minfix` | 首次固定需连续通过的历元数，`0` 使用原生默认值 `5` |
 | `warmupMin` | 预热时长，单位分钟，`0` 关闭；预热期仅驱动滤波，不计入报告 |
 
 以上新增解算选项在 Java 中默认均为 `0`，由 LMonitor 应用上述默认行为；非零选项值按原生算法的定义传入。
@@ -321,25 +321,60 @@ typedef struct LMonitorStreamInfo {
 <errMsg>
 ```
 
-LMonitor 的 `solBuf` 包含 24 个以空白分隔的字段，顺序为：
+长基线原生库当前返回的 `solBuf` 包含 30 个以空白分隔的字段，顺序为：
 
 ```text
-startDate startTime endDate endTime dposMax dposAvg dposStd fixedRate roverEpochRate baseEpochRate E N U solStatus solutionType satNum isMoved roverSample baseSample roverObsNum baseObsNum fileStatus navStatus offTime
+startDate startTime endDate endTime dposMax dposAvg dposStd fixedRate roverEpochRate baseEpochRate E N U X Y Z B L H solStatus solutionType satNum isMoved roverSample baseSample roverObsNum baseObsNum fileStatus navStatus offTime
 ```
 
-`isMoved` 位于卫星数量之后；`offTime` 为解算耗时，例如 `0.3s`。
+字段含义：
 
-通过 `MonitorService` 调用时，`MonitorDataService` 会把 `solBuf` 解析成 `MonitorData`，再通过 `HandlerDataInterface` 回调出去。当前 Java 结果对象未暴露 `isMoved`；`gpsTime/lastObsTime` 均取返回的结束时间。
+| 字段 | 含义 | 单位/格式 |
+| --- | --- | --- |
+| `E N U` | 相对基准站的东、北、天坐标 | 米 |
+| `X Y Z` | 监测站 ECEF 地心地固坐标 | 米 |
+| `B L H` | 监测站 WGS84 大地纬度、经度、椭球高 | 度、度、米 |
+| `isMoved` | 长基线结果中的测站移动标志 | 整数 |
+| `offTime` | 解算耗时 | 例如 `0.3s` |
+
+`X/Y/Z/B/L/H` 由原生库根据传入的基准站 ECEF `rb={baseX,baseY,baseZ}` 计算。`baseX/baseY/baseZ` 全部为 `0` 或未设置时，六个绝对坐标字段均为 `0`；`NONE` 结果也保持为 `0`。`B/L` 为十进制度，`H` 为 WGS84 椭球高。Java SDK 会保留 `isMoved`，不会把它误解析为采样率。
+
+为已有任务设置基准站坐标，并在回调中读取绝对坐标：
+
+```java
+task.setBaseX(-1647115.6013); // ECEF X，米
+task.setBaseY(4602291.3375);  // ECEF Y，米
+task.setBaseZ(4085428.6662);  // ECEF Z，米
+monitorService.setHandlerData(data -> {
+    System.out.printf("XYZ(m): %.4f %.4f %.4f%n", data.getX(), data.getY(), data.getZ());
+    System.out.printf("BLH(deg,deg,m): %.9f %.9f %.4f%n", data.getB(), data.getL(), data.getH());
+    System.out.println("isMoved = " + data.getIsMoved());
+});
+monitorService.startMonitor(task, "/path/to/license.lic");
+```
+
+坐标转换由 Go 封装完成，Java SDK 负责解析。有效 `Fixed` / `Float` 结果的 ENU 全零时，监测站 XYZ 等于传入的基准站 XYZ；基准站坐标无效或转换失败时，六个绝对坐标字段为 `0`，具体原因通过 `errMsg` 返回。应结合解状态和告警判断结果有效性。
+
+示例：
+
+```text
+2026/07/03 02:00:00 2026/07/03 03:00:00 0.1488 0.0468 0.0205 0.9915 0.9833 0.9833 36.9577 -5.6954 7.4100 -1647153.5438 4602287.6750 4085429.0790 40.077629137 109.692231002 1311.3510 Fixed 1 29 1 15 15 236 236 0 0 1.1s
+```
+
+为了兼容旧版原生库，解析器仍接受历史 23 列和 24 列结果；历史结果没有绝对坐标时，`X/Y/Z/B/L/H` 使用 `0`，24 列结果中的 `isMoved` 仍按其原字段解析，23 列结果的 `isMoved` 为 `0`。支持连续空格和 Tab；不支持的字段数量使同步解析返回 `null`，回调解析不触发回调。
+
+通过 `MonitorService` 调用时，`MonitorDataService` 会把 `solBuf` 解析成 `MonitorData`，再通过 `HandlerDataInterface` 回调出去。`MonitorData` 新增 `X/Y/Z/B/L/H` 和 `isMoved` 属性；`gpsTime/lastObsTime` 均取返回的结束时间。
 
 ## 测试
 
 测试类：
 
 ```text
-src/test/java/com/navfirst/lmonitor/lib/library/MonitorStreamInfoTests.java
-src/test/java/com/navfirst/lmonitor/lib/services/impl/MonitorServiceImplTests.java
+src/test/java/com/navfirst/lmonitor/lib/services/impl/MonitorDataServiceImplTests.java
 src/test/java/com/navfirst/lmonitor/lib/LmonitorJavaLibApplicationTests.java
 ```
+
+`MonitorDataServiceImplTests` 覆盖 30 列长基线结果、`X/Y/Z/B/L/H`、`isMoved`、零坐标和多空白解析；`LmonitorJavaLibApplicationTests` 覆盖本地原生库加载和可选的真实数据解算。
 
 当前 `testMonitor` 使用如下路径：
 
